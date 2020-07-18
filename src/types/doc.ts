@@ -27,10 +27,12 @@ export type ScannedDocumentProps = {
   position: number;
 };
 
-export type SavedDocumentProps = ScannedDocumentProps & {
+export type SavedDocumentProps = {
+  id?: number;
   name: string;
   create_time: Date;
   thumbnailUri: string;
+  documents: ScannedDocumentProps[];
   pdfUri: string;
 };
 

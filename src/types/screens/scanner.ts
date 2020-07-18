@@ -1,15 +1,15 @@
-import { ScannedDocumentProps } from '../doc';
+import { ScannedDocumentProps, SavedDocumentProps } from '../doc';
 import * as ACTION from '@src/actions/constants';
 
-type TabAction = typeof ACTION.TAB_CHANGE | typeof ACTION.POP_UP_CONFIRMED;
-type OCRAction = typeof ACTION.OCR_Language_REQUEST | typeof ACTION.OCR_LANGUAGE_CHANGE;
-type PreferenceAction = typeof ACTION.FLASH_CHANGE | typeof ACTION.AUTO_CAPTURE_CHANGE;
-type NavigationAction = typeof ACTION.GO_TO_DOCUMENT_EDIT | typeof ACTION.GO_TO_DOCUMENTS;
-type DocumentAction = typeof ACTION.DOCUMENT_CAPTURED
+export type TabAction = typeof ACTION.TAB_CHANGE | typeof ACTION.POP_UP_CONFIRMED;
+export type OCRAction = typeof ACTION.OCR_Language_REQUEST | typeof ACTION.OCR_LANGUAGE_CHANGE;
+export type PreferenceAction = typeof ACTION.FLASH_CHANGE | typeof ACTION.AUTO_CAPTURE_CHANGE;
+export type NavigationAction = typeof ACTION.MODIFY_DOCUMENT | typeof ACTION.SHOW_SCAN_NOT_SAVED_WARNING;
+export type DocumentAction = typeof ACTION.DOCUMENT_CAPTURED
 | typeof ACTION.DOCUMENT_ACCEPTED
 | typeof ACTION.DOCUMENT_REJECED;
 
-type FlashProps = 'on' | 'off' | 'auto';
+export type FlashProps = 'on' | 'off' | 'auto';
 
 export type ScannerState = {
   // scanner tab
@@ -20,6 +20,9 @@ export type ScannerState = {
 
   // captured document that is in process
   capturedDocument: ScannedDocumentProps;
+
+  // pdfDocument in case of edit document
+  pdfDocument: SavedDocumentProps;
 
   // preview document after capture (for manual cropping)
   showDocumentPreview: boolean;
@@ -41,7 +44,11 @@ export type ScannerState = {
 };
 
 export type ScannerActionProps =
+  // Reset State
   {
+    type: typeof ACTION.RESET_SCANNER_STATE,
+  }
+  | {
     // TabAction
     type: TabAction;
     activeTab?: number;
@@ -65,8 +72,6 @@ export type ScannerActionProps =
   | {
     // NavigationAction
     type: NavigationAction;
-    confirmedDocuments: ScannedDocumentProps[];
-
-    // force navigation is used to navigate without saving documents
-    forceNavigate?: boolean;
+    pdfDocument?: SavedDocumentProps;
+    askScanRejection?: boolean;
   };
