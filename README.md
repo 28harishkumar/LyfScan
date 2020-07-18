@@ -18,14 +18,14 @@ LyfScan a rich scanning application that was being built for the internal functi
 
 ## Screen Designs
 
-1. [Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg)
+1. ![Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg)
 
-2. [Handwritten Paper](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg)
+2. ![Handwritten Paper](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg)
 
-3. [OCR](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg)
+3. ![OCR](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg)
 
-4. [Photo Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg)
+4. ![Photo Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg)
 
-5. [Contact Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg)
+5. ![Contact Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg)
 
-6. [Multiple Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg)
+6. ![Multiple Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg)
