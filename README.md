@@ -2,6 +2,9 @@
 
 LyfScan a rich scanning application that was being built for the internal functionalities of Lyflink (a healthcare-related application). With the motivation of the government’s App Innovate Challenge, it is planned to build as a standalone project. To make it competitive as a commercial product, some more essential features have been added.
 
+## Work in progress
+This apps is under development. Expected beta version release 22nd August 2020.
+
 ## Features:
 
 1. Document Scanner: Scans documents, ID cards, passports and QR Code
