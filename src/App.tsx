@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -10,7 +11,7 @@ import rootReducer from './reducers';
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, logger)
 );
 
 import ScannerContainer from './screens/Scanner';
