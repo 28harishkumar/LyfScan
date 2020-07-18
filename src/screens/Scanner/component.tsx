@@ -1,5 +1,6 @@
 import React from 'react';
 import Scanner from '@src/components/Scanner';
+import CustomCrop from 'react-native-perspective-image-cropper';
 
 
 export default class Component extends React.PureComponent<any> {
@@ -14,8 +15,20 @@ export default class Component extends React.PureComponent<any> {
    * Passport Scan 
    */
   render() {
-    return (
-      <Scanner />
-    )
+    const { capturedDocument, onDocumentCapture } = this.props;
+
+    if (!capturedDocument) {
+      return (
+        <Scanner onDocumentCapture={onDocumentCapture} />
+      )
+    } else {
+      return <CustomCrop
+        updateImage={console.log}
+        height={200}
+        width	={200}
+        
+        initialImage={capturedDocument.initialImage}
+       />
+    }
   }
 }

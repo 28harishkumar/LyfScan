@@ -25,6 +25,19 @@ import { Alert } from 'react-native';
 type Props = any;
 
 class ScannerContainer extends React.PureComponent<Props> {
+  onDocumentCapture = (data) =>{
+    console.log('data', data);
+    const capturedDocument: ScannedDocumentProps = {
+      originalUri: data.initialImage,
+      croppedUri: data.croppedImage,
+      finalUri: null,
+      croppedPosition: null,
+      position: 1,
+    }
+
+    this.props.onDocumentCapture(capturedDocument)
+  }
+
   getPDFDocument = (): SavedDocumentProps => {
     const { pdfDocument, confirmedDocuments } = this.props;
     
@@ -103,7 +116,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       onOCRLanguageChange={this.props.onOCRLanguageChange}
       onFlashChange={this.props.onFlashChange}
       onAutoCaptureChange={this.props.onAutoCaptureChange}
-      onDocumentCapture={this.props.onDocumentCapture}
+      onDocumentCapture={this.onDocumentCapture}
       onDocumentAccepted={this.props.onDocumentAccepted}
       onDocumentRejected={this.props.onDocumentRejected}
       goToDocumentEdit={this.goToDocumentEdit}

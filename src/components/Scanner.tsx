@@ -20,7 +20,7 @@ import {
 import Permissions from 'react-native-permissions';
 import PDFScanner from '@woonivers/react-native-document-scanner';
 
-export default function Scanner() {
+export default function Scanner(props) {
   const pdfScannerElement = useRef(null);
   const [data, setData]: any = useState();
   const [allowed, setAllowed] = useState(false);
@@ -45,6 +45,10 @@ export default function Scanner() {
     pdfScannerElement.current.capture();
   }
 
+  function onPictureTaken(data) {
+    props.onDocumentCapture(data)
+  }
+
   if (data && data.croppedImage) {
     return (
       <React.Fragment>
@@ -61,7 +65,7 @@ export default function Scanner() {
       <PDFScanner
         ref={pdfScannerElement}
         style={styles.scanner}
-        onPictureTaken={setData}
+        onPictureTaken={onPictureTaken}
         overlayColor='rgba(255,130,0, 0.7)'
         enableTorch={false}
         quality={0.5}
