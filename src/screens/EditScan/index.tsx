@@ -1,14 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 
-class EditDocument extends React.PureComponent {
+class EditScan extends React.PureComponent {
   render() {
     return (
-      <View></View>
+      <View>
+        <Text>Edit Document is in progress</Text>
+      </View>
     );
   }
 }
 
-export default connect(state => ({}))(EditDocument);
+export default connect(state => ({}))(EditScan);

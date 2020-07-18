@@ -1,5 +1,17 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Image, Platform } from 'react-native';
+import React, { 
+  useRef, 
+  useState, 
+  useEffect,
+} from 'react';
+
+import { 
+  View, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  Image, 
+  Platform,
+} from 'react-native';
 import Permissions from 'react-native-permissions';
 import PDFScanner from '@woonivers/react-native-document-scanner';
 
@@ -10,9 +22,13 @@ export default function App() {
 
   useEffect(() => {
     async function requestCamera() {
-      const result = await Permissions.request(Platform.OS === 'android' ? 'android.permission.CAMERA' : 'ios.permission.CAMERA');
+      const result = await Permissions.request(
+        Platform.OS === 'android' ? 'android.permission.CAMERA' : 'ios.permission.CAMERA'
+      );
+
       if (result === 'granted') { setAllowed(true); }
     }
+    
     requestCamera();
   }, []);
 

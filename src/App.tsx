@@ -8,7 +8,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import rootReducer from './reducers';
 
-// Note: this API requires redux@>=3.1.0
 const store = createStore(
   rootReducer,
   applyMiddleware(thunk),
@@ -17,22 +16,25 @@ const store = createStore(
 import ScannerContainer from './screens/Scanner';
 import EditScanContainer from './screens/EditScan';
 import DocumentListContainer from './screens/DocumentList';
+import DocumentViewContainer from './screens/DocumentView';
+import ContactViewContainer from './screens/ContactView';
+import EditDocumentContainer from './screens/EditDocument';
+import AccountContainer from './screens/Account';
+import SetMobilePinContainer from './screens/SetMobilePin';
+import ShareDocumentContainer from './screens/ShareDocument';
+import AuthenticationContainer from './screens/Authentication';
+
+
 const Stack = createStackNavigator();
 
 export class App extends Component {
   /**
-   * Main Screens:
-   *   1. Scanner
-   *   2. Edit Scan
-   *   3. Document List (Tabs, Search)
-   *   4. Document View
-   *   5. Contact View
-   *   6. Edit Document
-   *   7. Account
-   *   8. Mobile Pin Set
-   *   9. Share Document
+   * TODO:
+   *   1. Check authentication
+   *   2. Set user preferences
    */
   render() {
+    // TODO: Authentication will be first screen
     return (
       <Provider store={store}>
         <NavigationContainer>
@@ -49,6 +51,36 @@ export class App extends Component {
             <Stack.Screen
               name='DocumentList'
               component={DocumentListContainer}
+            />
+
+            <Stack.Screen
+              name='DocumentView'
+              component={DocumentViewContainer}
+            />
+
+            <Stack.Screen
+              name='ContactView'
+              component={ContactViewContainer}
+            />
+
+            <Stack.Screen
+              name='EditDocument'
+              component={EditDocumentContainer}
+            />
+
+            <Stack.Screen
+              name='Account'
+              component={AccountContainer}
+            />
+
+            <Stack.Screen
+              name='SetMobilePin'
+              component={SetMobilePinContainer}
+            />
+
+            <Stack.Screen
+              name='ShareDocument'
+              component={ShareDocumentContainer}
             />
           </Stack.Navigator>
         </NavigationContainer>
