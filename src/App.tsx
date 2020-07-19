@@ -11,7 +11,7 @@ import rootReducer from './reducers';
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  applyMiddleware(thunk, logger),
 );
 
 import ScannerContainer from './screens/Scanner';
@@ -39,7 +39,7 @@ export class App extends Component {
     return (
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator headerMode='none'>
             <Stack.Screen
               name='Scanner'
               component={ScannerContainer} />

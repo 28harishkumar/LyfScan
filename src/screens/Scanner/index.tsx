@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { FlashProps } from '@src/types/screens/scanner';
-import { ScannedDocumentProps, SavedDocumentProps } from '@src/types/doc';
+import { ScannedDocumentProps, SavedDocumentProps, RectCoordinates } from '@src/types/doc';
 import * as Utilities from '@src/core/Utilities';
 import {
   onTabChange,
@@ -25,27 +25,26 @@ import { Alert } from 'react-native';
 type Props = any;
 
 class ScannerContainer extends React.PureComponent<Props> {
-  onDocumentCapture = (data) =>{
-    console.log('data', data);
+  onDocumentCapture = (data) => {
     const capturedDocument: ScannedDocumentProps = {
       originalUri: data.initialImage,
       croppedUri: data.croppedImage,
       finalUri: null,
       croppedPosition: null,
       position: 1,
-    }
+    };
 
-    this.props.onDocumentCapture(capturedDocument)
+    this.props.onDocumentCapture(capturedDocument);
   }
 
   getPDFDocument = (): SavedDocumentProps => {
     const { pdfDocument, confirmedDocuments } = this.props;
-    
+
     if (!confirmedDocuments) {
       // TODO: show tooltip
       Alert.alert(
-        'Add a document first', 
-        'First add a document and then tap again to proceed.'
+        'Add a document first',
+        'First add a document and then tap again to proceed.',
       );
 
       return null;
@@ -58,7 +57,7 @@ class ScannerContainer extends React.PureComponent<Props> {
         ...pdfDocument,
         documents: confirmedDocuments,
         thumbnailUri: thumb,
-      }
+      };
     }
 
     return {
@@ -67,7 +66,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       thumbnailUri: thumb,
       documents: confirmedDocuments,
       pdfUri: null,
-    }
+    };
   }
 
   goToDocumentEdit = () => {
@@ -82,11 +81,11 @@ class ScannerContainer extends React.PureComponent<Props> {
   goToDocuments = () => {
     const { capturedDocument, confirmedDocuments } = this.props;
 
-    if(!capturedDocument && !confirmedDocuments) {
+    if (!capturedDocument && !confirmedDocuments) {
       this.props.dispatch(resetScannerState());
       this.props.navigation.navigate('DocumentList');
     } else {
-      this.props.showScanNotSavedWarning(true); 
+      this.props.showScanNotSavedWarning(true);
     }
   }
 
@@ -96,7 +95,21 @@ class ScannerContainer extends React.PureComponent<Props> {
   }
 
   rejectGoToDocuments = () => {
-    this.props.showScanNotSavedWarning(false); 
+    this.props.showScanNotSavedWarning(false);
+  }
+
+  onDocumentAccepted = (croppedUri: string, croppedPosition: RectCoordinates) => {
+    const {
+      onDocumentAccepted: onDocumentAcceptedAction,
+      capturedDocument,
+    } = this.props;
+    const croppedDocument: ScannedDocumentProps = {
+      ...capturedDocument,
+      croppedUri,
+      croppedPosition,
+    };
+
+    onDocumentAcceptedAction(croppedDocument);
   }
 
   render() {
@@ -104,6 +117,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       activeTab={this.props.activeTab}
       popupConfirmed={this.props.popupConfirmed}
       capturedDocument={this.props.capturedDocument}
+      confirmedDocuments={this.props.confirmedDocuments}
       showDocumentPreview={this.props.showDocumentPreview}
       useFlash={this.props.useFlash}
       autoCapture={this.props.autoCapture}
@@ -117,13 +131,13 @@ class ScannerContainer extends React.PureComponent<Props> {
       onFlashChange={this.props.onFlashChange}
       onAutoCaptureChange={this.props.onAutoCaptureChange}
       onDocumentCapture={this.onDocumentCapture}
-      onDocumentAccepted={this.props.onDocumentAccepted}
+      onDocumentAccepted={this.onDocumentAccepted}
       onDocumentRejected={this.props.onDocumentRejected}
       goToDocumentEdit={this.goToDocumentEdit}
       goToDocuments={this.goToDocuments}
       forceGoToDocuments={this.forceGoToDocuments}
       rejectGoToDocuments={this.rejectGoToDocuments}
-    />
+    />;
   }
 }
 
@@ -140,6 +154,7 @@ const mapDispatchToProps = dispatch => ({
   onDocumentAccepted: (capturedDocument: ScannedDocumentProps) => dispatch(onDocumentAccepted(capturedDocument)),
   onDocumentRejected: () => dispatch(onDocumentRejected()),
   showScanNotSavedWarning: (askScanRejection: boolean) => dispatch(showScanNotSavedWarning(askScanRejection)),
-})
+  dispatch,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScannerContainer);

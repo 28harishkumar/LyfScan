@@ -1,7 +1,6 @@
 import { FlashProps } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps } from '@src/types/doc';
 import * as Constants from './constants';
-import * as Utilities from '@src/core/Utilities';
 
 export const onTabChange = (activeTab: number) => ({
   type: Constants.TAB_CHANGE,
