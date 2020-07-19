@@ -1,7 +1,6 @@
 import { FlashProps } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps } from '@src/types/doc';
 import * as Constants from './constants';
-import * as Utilities from '@src/core/Utilities';
 
 export const onTabChange = (activeTab: number) => ({
   type: Constants.TAB_CHANGE,
@@ -50,12 +49,13 @@ export const onDocumentRejected = () => ({
   capturedDocument: null,
 });
 
-export const goToDocumentEdit = (pdfDocument: SavedDocumentProps) => {
+export const goToScanEdit = (pdfDocument: SavedDocumentProps) => {
   return (dispatch) => {
     dispatch({
-      // note this type will be in edit document page
+      // note this type will be in EditScan reducer
       type: Constants.MODIFY_DOCUMENT,
       pdfDocument,
+      activePage: 0,
     });
   };
 };

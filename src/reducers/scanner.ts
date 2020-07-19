@@ -1,5 +1,5 @@
 import * as Constant from '@src/actions/constants';
-import { 
+import {
   ScannerState,
   ScannerActionProps,
 } from '@src/types/screens/scanner';
@@ -27,7 +27,7 @@ export default function reducer(state = initialState, action: ScannerActionProps
     case Constant.RESET_SCANNER_STATE:
       return {
         ...initialState,
-      }
+      };
     case Constant.TAB_CHANGE:
     case Constant.POP_UP_CONFIRMED:
     case Constant.OCR_Language_REQUEST:
@@ -50,7 +50,7 @@ export default function reducer(state = initialState, action: ScannerActionProps
           {
             ...action.capturedDocument,
           },
-        ]
+        ];
       } else {
         confirmedDocuments = [{ ...action.capturedDocument }];
       }
@@ -59,6 +59,7 @@ export default function reducer(state = initialState, action: ScannerActionProps
         ...state,
         confirmedDocuments,
         capturedDocument: null,
+        showDocumentPreview: false,
       };
     default:
       return state;

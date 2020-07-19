@@ -1,3 +1,15 @@
+type Coordinate = {
+  x: number;
+  y: number;
+};
+
+export type RectCoordinates = {
+  topLeft: Coordinate;
+  topRight: Coordinate;
+  bottomLeft: Coordinate;
+  bootomRight: Coordinate;
+};
+
 // Scanned Document
 export type ScannedDocumentProps = {
   // permanent id given after save
@@ -16,24 +28,27 @@ export type ScannedDocumentProps = {
   finalUri: string;
 
   // crop position
-  croppedPosition: {
-    topLeft: number;
-    topRight: number;
-    bottomLeft: number;
-    bootomRight: number; 
-  };
+  croppedPosition: RectCoordinates;
 
   // position of image in multiple document list
   position: number;
+
+  // size
+  height: number;
+  width: number;
 };
 
 export type SavedDocumentProps = {
   id?: number;
+  folderId?: number;
   name: string;
   create_time: Date;
   thumbnailUri: string;
   documents: ScannedDocumentProps[];
   pdfUri: string;
+
+  // TODO: documentType is under progress
+  documentType: 'document' | 'photo' | 'contact' | string;
 };
 
 export type ContactProps = {
@@ -46,4 +61,4 @@ export type ContactProps = {
   website: string;
   address: string;
   cardUri: string;
-}
+};
