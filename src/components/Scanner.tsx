@@ -1,6 +1,6 @@
 /**
  * Scanner widget
- * 
+ *
  */
 
 import React, {
@@ -28,7 +28,7 @@ export default function Scanner(props) {
   useEffect(() => {
     async function requestCamera() {
       const result = await Permissions.request(
-        Platform.OS === 'android' ? 'android.permission.CAMERA' : 'ios.permission.CAMERA'
+        Platform.OS === 'android' ? 'android.permission.CAMERA' : 'ios.permission.CAMERA',
       );
 
       if (result === 'granted') { setAllowed(true); }
@@ -43,10 +43,6 @@ export default function Scanner(props) {
 
   function handleOnPress() {
     pdfScannerElement.current.capture();
-  }
-
-  function onPictureTaken(data) {
-    props.onDocumentCapture(data)
   }
 
   if (data && data.croppedImage) {
@@ -65,7 +61,7 @@ export default function Scanner(props) {
       <PDFScanner
         ref={pdfScannerElement}
         style={styles.scanner}
-        onPictureTaken={onPictureTaken}
+        onPictureTaken={props.onDocumentCapture}
         overlayColor='rgba(255,130,0, 0.7)'
         enableTorch={false}
         quality={0.5}
