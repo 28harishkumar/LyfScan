@@ -32,15 +32,23 @@ export type ScannedDocumentProps = {
 
   // position of image in multiple document list
   position: number;
+
+  // size
+  height: number;
+  width: number;
 };
 
 export type SavedDocumentProps = {
   id?: number;
+  folderId?: number;
   name: string;
   create_time: Date;
   thumbnailUri: string;
   documents: ScannedDocumentProps[];
   pdfUri: string;
+
+  // TODO: documentType is under progress
+  documentType: 'document' | 'photo' | 'contact' | string;
 };
 
 export type ContactProps = {

@@ -5790,6 +5790,11 @@ react-native-easy-grid@0.2.2:
   dependencies:
     lodash "^4.17.15"
 
+react-native-encrypted-storage@^2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/react-native-encrypted-storage/-/react-native-encrypted-storage-2.4.4.tgz#7a3c002f93c8159c2115ce4d863896695018ec40"
+  integrity sha512-cGydpKDQknFSYzltSKs6v37agbIeLZBvUsuMTLnt42DoLPEyRNPKL81yMBIFFgIogUcsBlw7IsdjvwS9VRM9og==
+
 react-native-fs@^2.16.6:
   version "2.16.6"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.16.6.tgz#2901789a43210a35a0ef0a098019bbef3af395fd"

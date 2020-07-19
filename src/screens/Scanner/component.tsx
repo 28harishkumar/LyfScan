@@ -6,7 +6,10 @@ import Modal from 'react-native-modal';
 import { TextButton, RaisedTextButton } from '@src/components/button';
 import styles from './styles';
 
-export default class Component extends React.PureComponent<any> {
+// TODO: types for Props
+type Props = any;
+
+export default class Component extends React.PureComponent<Props> {
   /**
    * TODO: add following tabs:
    * Image to Text
@@ -19,6 +22,7 @@ export default class Component extends React.PureComponent<any> {
    */
   customCrop = null;
 
+  // TODO: move modal to components
   renderConfirmModal = () => {
     const {
       askScanRejection,
@@ -53,63 +57,77 @@ export default class Component extends React.PureComponent<any> {
     );
   }
 
-  render() {
+  renderScannerView() {
     const {
-      capturedDocument,
       confirmedDocuments,
       onDocumentCapture,
-      onDocumentRejected,
-      onDocumentAccepted,
-      goToDocumentEdit,
+      goToScanEdit,
       goToDocuments,
     } = this.props;
 
-    if (!capturedDocument) {
-      return (
-        <View style={styles.fullFlex}>
-          {this.renderConfirmModal()}
-          <Scanner onDocumentCapture={onDocumentCapture} />
-          <View style={styles.row}>
-            {
-              !!confirmedDocuments &&
-              <RaisedTextButton
-                style={styles.fullFlex}
-                title='Convert to pdf'
-                onPress={goToDocumentEdit} />
-            }
+    return (
+      <View style={styles.fullFlex}>
+        {this.renderConfirmModal()}
+        <Scanner onDocumentCapture={onDocumentCapture} />
+        <View style={styles.row}>
+          {
+            !!confirmedDocuments &&
             <RaisedTextButton
               style={styles.fullFlex}
-              title='Show Documents'
-              onPress={goToDocuments} />
-          </View>
+              title='Convert to pdf'
+              onPress={goToScanEdit} />
+          }
+          <RaisedTextButton
+            style={styles.fullFlex}
+            title='Show Documents'
+            onPress={goToDocuments} />
         </View>
-      );
-    } else {
-      return (
+      </View>
+    );
+  }
+
+  renderCroppingView() {
+    const {
+      capturedDocument,
+      onDocumentRejected,
+      onDocumentAccepted,
+    } = this.props;
+
+    return (
+      <View style={styles.fullFlex}>
         <View style={styles.fullFlex}>
-          <View style={styles.fullFlex}>
-            <CustomCrop
-              ref={ref => (this.customCrop = ref)}
-              updateImage={onDocumentAccepted}
-              height={200}
-              width={200}
+          <CustomCrop
+            ref={ref => (this.customCrop = ref)}
+            updateImage={onDocumentAccepted}
+            height={capturedDocument.height}
+            width={capturedDocument.width}
 
-              initialImage={capturedDocument.originalUri}
-            />
-          </View>
-
-          <View style={styles.row}>
-            <TextButton
-              style={styles.fullFlex}
-              title='Retake'
-              onPress={() => onDocumentRejected()} />
-            <RaisedTextButton
-              style={styles.fullFlex}
-              title='Continue'
-              onPress={() => this.customCrop.crop()} />
-          </View>
+            initialImage={capturedDocument.originalUri}
+            rectangleCoordinates={capturedDocument.croppedPosition}
+          />
         </View>
-      );
+
+        <View style={styles.row}>
+          <TextButton
+            style={styles.fullFlex}
+            title='Retake'
+            onPress={() => onDocumentRejected()} />
+          <RaisedTextButton
+            style={styles.fullFlex}
+            title='Continue'
+            onPress={() => this.customCrop.crop()} />
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    const { capturedDocument } = this.props;
+
+    if (capturedDocument) {
+      return this.renderCroppingView();
     }
+
+    return this.renderScannerView();
   }
 }

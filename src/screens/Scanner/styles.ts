@@ -10,6 +10,7 @@ export default StyleSheet.create({
   modal: {
     padding: 8,
     backgroundColor: '#ffffff',
+    borderRadius: 8,
   },
   modalHead: {
     fontWeight: 'bold',

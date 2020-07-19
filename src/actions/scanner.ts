@@ -49,12 +49,13 @@ export const onDocumentRejected = () => ({
   capturedDocument: null,
 });
 
-export const goToDocumentEdit = (pdfDocument: SavedDocumentProps) => {
+export const goToScanEdit = (pdfDocument: SavedDocumentProps) => {
   return (dispatch) => {
     dispatch({
-      // note this type will be in edit document page
+      // note this type will be in EditScan reducer
       type: Constants.MODIFY_DOCUMENT,
       pdfDocument,
+      activePage: 0,
     });
   };
 };

@@ -14,7 +14,7 @@ import {
   onDocumentCapture,
   onDocumentAccepted,
   onDocumentRejected,
-  goToDocumentEdit,
+  goToScanEdit,
   showScanNotSavedWarning,
   resetScannerState,
 } from '@src/actions/scanner';
@@ -30,8 +30,10 @@ class ScannerContainer extends React.PureComponent<Props> {
       originalUri: data.initialImage,
       croppedUri: data.croppedImage,
       finalUri: null,
-      croppedPosition: null,
+      croppedPosition: data.rectangleCoordinates,
       position: 1,
+      height: data.height,
+      width: data.width,
     };
 
     this.props.onDocumentCapture(capturedDocument);
@@ -66,14 +68,15 @@ class ScannerContainer extends React.PureComponent<Props> {
       thumbnailUri: thumb,
       documents: confirmedDocuments,
       pdfUri: null,
+      documentType: 'document',
     };
   }
 
-  goToDocumentEdit = () => {
+  goToScanEdit = () => {
     const pdfDocument: SavedDocumentProps = this.getPDFDocument();
 
     if (pdfDocument) {
-      this.props.dispatch(goToDocumentEdit(pdfDocument));
+      this.props.dispatch(goToScanEdit(pdfDocument));
       this.props.navigation.navigate('EditScan');
     }
   };
@@ -133,7 +136,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       onDocumentCapture={this.onDocumentCapture}
       onDocumentAccepted={this.onDocumentAccepted}
       onDocumentRejected={this.props.onDocumentRejected}
-      goToDocumentEdit={this.goToDocumentEdit}
+      goToScanEdit={this.goToScanEdit}
       goToDocuments={this.goToDocuments}
       forceGoToDocuments={this.forceGoToDocuments}
       rejectGoToDocuments={this.rejectGoToDocuments}
