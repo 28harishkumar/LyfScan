@@ -36,13 +36,13 @@ This apps is under development. Expected beta version release 22nd August 2020.
 <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg" width="400" />
 </kbd>
 <kbd>
-<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg | width=400" width="400" />
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg" width="400" />
 </kbd>
 <kbd>
  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg" width="400" />
 </kbd>
 <kbd>
-<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg | width=400" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg | width=400" width="400" />
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg" width="400" />
 </kbd>
 <kbd>
   <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg" width="400" />
