@@ -5,12 +5,12 @@ import {
 } from '../doc';
 
 export type FolderProps = {
-  folderId?: number;
+  folderId?: string;
   name: string;
-  folders: FolderProps[];
+  folders?: FolderProps[];
   documents: SavedDocumentProps[];
   deepthNumber: number;
-  parentFolderId: number;
+  parentFolderId: string;
 };
 
 export type DocumentListState = {

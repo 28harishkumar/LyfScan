@@ -10,6 +10,7 @@ target 'LyfScan' do
 
   pod 'react-native-document-scanner', :path => '../node_modules/react-native-document-scanner'
 
+
   target 'LyfScanTests' do
     inherit! :complete
     # Pods for testing

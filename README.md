@@ -21,14 +21,30 @@ This apps is under development. Expected beta version release 22nd August 2020.
 
 ## Screen Designs
 
-1. ![Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg)
+![LyfScan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/promo_banner.jpeg =400x)
 
-2. ![Handwritten Paper](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg)
+![Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg =400x)
 
-3. ![OCR](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg)
+![Handwritten Paper](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg =400x)
 
-4. ![Photo Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg)
+![OCR](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg =400x)
 
-5. ![Contact Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg)
+![Photo Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg =400x)
 
-6. ![Multiple Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg)
+![Contact Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg =400x)
+
+![Multiple Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg =400x)
+
+![Document Screen](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg =400x)
+
+![Document Actions](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg =400x)
+
+![Account Screen](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/account.jpeg =400x)
+
+![Contact Tab](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contacts.jpeg =400x)
+
+![Login](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/login.jpeg =400x)
+
+![LyfScan Share](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/lyfscan_share.jpeg =400x)
+
+![Splash](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/splash.jpeg =400x)

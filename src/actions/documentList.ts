@@ -2,14 +2,13 @@ import * as Constants from './constants';
 import { FolderProps } from '@src/types/screens/docoumentList';
 import { SavedDocumentProps } from '@src/types/doc';
 import {
-  DocumentStorage,
   FolderStorage,
 } from '@src/storage';
 
-export const refreshDocuments = (tab: number) => {
-  return dispatch => {
-    const currentFolder: FolderProps = FolderStorage.getRootFolder(tab);
-    const numberOfLoadedDocuments = currentFolder.documents;
+export const refreshDocuments = (tab: string) => {
+  return async dispatch => {
+    const currentFolder: FolderProps = await FolderStorage.getFolder(tab);
+    const numberOfLoadedDocuments = currentFolder.documents.length;
 
     dispatch({
       type: Constants.REFRESH_DOCUMENTS,
@@ -19,22 +18,9 @@ export const refreshDocuments = (tab: number) => {
   };
 };
 
-export const saveDocument = async (pdfDocument: SavedDocumentProps) => {
-  /**
-   * TODO:
-   *   1. Save files on filesystem
-   *   2. Put links in database
-   */
-
-  return async dispatch => {
-    // add document to storage
-    pdfDocument = await DocumentStorage.storeDocument(pdfDocument);
-
-    dispatch({
-      type: Constants.SAVE_DOCUMENT_PDF,
-      pdfDocument,
-    });
-  };
-};
+export const selectViewDocument = (viewDocument: SavedDocumentProps) => ({
+  type: Constants.VIEW_DOCUMENT,
+  viewDocument,
+});
 
 // TODO: more actions are in progress

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { Alert, BackHandler } from 'react-native';
 import { FlashProps } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps, RectCoordinates } from '@src/types/doc';
 import * as Utilities from '@src/core/Utilities';
@@ -19,12 +20,25 @@ import {
   resetScannerState,
 } from '@src/actions/scanner';
 import Component from './component';
-import { Alert } from 'react-native';
+import { refreshDocuments } from '@src/actions/documentList';
 
 // TODO: add Props type
 type Props = any;
 
 class ScannerContainer extends React.PureComponent<Props> {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  handleBackButtonClick = () => {
+    this.goToDocuments();
+    return true;
+  }
+
   onDocumentCapture = (data) => {
     const capturedDocument: ScannedDocumentProps = {
       originalUri: data.initialImage,
@@ -63,11 +77,14 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
 
     return {
-      name: Utilities.getDate(null, 'DD-MM-YYYY'),
+      name: Utilities.getDate(null, 'DD-MM-YYYY') + '.pdf',
       create_time: new Date(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
       pdfUri: null,
+      folderId: '2',
+
+      // TODO: set correct document type
       documentType: 'document',
     };
   }
@@ -86,6 +103,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (!capturedDocument && !confirmedDocuments) {
       this.props.dispatch(resetScannerState());
+      this.props.dispatch(refreshDocuments('2'));
       this.props.navigation.navigate('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
@@ -101,14 +119,14 @@ class ScannerContainer extends React.PureComponent<Props> {
     this.props.showScanNotSavedWarning(false);
   }
 
-  onDocumentAccepted = (croppedUri: string, croppedPosition: RectCoordinates) => {
+  onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
     const {
       onDocumentAccepted: onDocumentAcceptedAction,
       capturedDocument,
     } = this.props;
     const croppedDocument: ScannedDocumentProps = {
       ...capturedDocument,
-      croppedUri,
+      finalUri,
       croppedPosition,
     };
 
