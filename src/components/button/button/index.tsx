@@ -25,8 +25,8 @@ export default class Button extends PureComponent<any, any> {
     disabled: false,
   };
 
-  onPressIn: (focused: boolean) => void;
-  onPressOut: (focused: boolean) => void;
+  onPressIn: (e) => void;
+  onPressOut: (e) => void;
 
   constructor(props) {
     super(props);

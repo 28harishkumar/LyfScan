@@ -26,7 +26,15 @@ export default function reducer(state = initialState, action: ScannerActionProps
   switch (action.type) {
     case Constant.RESET_SCANNER_STATE:
       return {
-        ...initialState,
+        ...state,
+        activeTab: 2,
+        useFlash: 'off',
+        popupConfirmed: false,
+        pdfDocument: null,
+        capturedDocument: null,
+        showDocumentPreview: false,
+        askScanRejection: false,
+        showOCRLanguageList: false,
       };
     case Constant.TAB_CHANGE:
     case Constant.POP_UP_CONFIRMED:

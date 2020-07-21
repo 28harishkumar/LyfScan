@@ -188,6 +188,7 @@ class Component extends React.PureComponent<Props> {
     // TODO: move to components
     return (
       <Modal
+        onRequestClose={() => this.props.setViewDocument(null)}
         onDismiss={() => this.props.setViewDocument(null)}
         visible={true}>
         <Pdf

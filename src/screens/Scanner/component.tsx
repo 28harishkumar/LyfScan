@@ -1,13 +1,33 @@
 import React from 'react';
-import Scanner from '@src/components/Scanner';
 import CustomCrop from 'react-native-perspective-image-cropper';
-import { View, Button, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import Modal from 'react-native-modal';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TextButton, RaisedTextButton } from '@src/components/button';
+import colors from '@src/core/colors';
+import Ripple from '@src/components/ripple';
+import { ScannedDocumentProps } from '@src/types/doc';
+import Scanner from './Scanner';
 import styles from './styles';
+import { FlashProps } from '@src/types/screens/scanner';
 
 // TODO: types for Props
-type Props = any;
+type Props = any & {
+  activeTab: number;
+  useFlash: FlashProps;
+  popupConfirmed: boolean;
+  autoCapture: boolean;
+  askScanRejection: boolean;
+  capturedDocument: ScannedDocumentProps;
+  confirmedDocuments: ScannedDocumentProps[];
+  onDocumentCapture: (data) => void;
+  onDocumentRejected: () => void;
+  onDocumentAccepted: (image, url, coordinates) => void;
+  rejectGoToDocuments: () => void;
+  forceGoToDocuments: () => void;
+  goToScanEdit: () => void;
+  goToDocuments: () => void;
+};
 
 export default class Component extends React.PureComponent<Props> {
   /**
@@ -22,7 +42,24 @@ export default class Component extends React.PureComponent<Props> {
    */
   customCrop = null;
 
-  // TODO: move modal to components
+  renderHeader = () => {
+    return (
+      <View style={styles.header}>
+        <Ripple
+          style={{ flex: 0, width: 100 }}
+          delayPressOut={200}
+          onLongPress={this.props.goToDocuments}
+          onPress={this.props.goToDocuments}>
+          <MaterialIcons
+            name='home'
+            size={34}
+            style={styles.homeIcon}
+            color={colors.secondaryIcon} />
+        </Ripple>
+      </View>
+    );
+  }
+
   renderConfirmModal = () => {
     const {
       askScanRejection,
@@ -43,12 +80,13 @@ export default class Component extends React.PureComponent<Props> {
             <View style={styles.row}>
               <RaisedTextButton
                 style={styles.fullFlex}
-                title='Cancel'
+                title='No'
                 onPress={rejectGoToDocuments} />
 
               <TextButton
                 style={styles.fullFlex}
-                title='Discard'
+                titleColor={colors.danger}
+                title='Yes'
                 onPress={forceGoToDocuments} />
             </View>
           </View>
@@ -66,25 +104,20 @@ export default class Component extends React.PureComponent<Props> {
     } = this.props;
 
     return (
-      <View style={styles.fullFlex}>
+      <React.Fragment>
         {this.renderConfirmModal()}
+        {this.renderHeader()}
         <Scanner
-          useFalsh={this.props.useFlash}
-          onDocumentCapture={onDocumentCapture} />
-        <View style={styles.row}>
-          {
-            !!confirmedDocuments &&
-            <RaisedTextButton
-              style={styles.fullFlex}
-              title='Convert to pdf'
-              onPress={goToScanEdit} />
-          }
-          <RaisedTextButton
-            style={styles.fullFlex}
-            title='Show Documents'
-            onPress={goToDocuments} />
-        </View>
-      </View>
+          confirmedDocuments={confirmedDocuments}
+          useFlash={this.props.useFlash}
+          onFlashChange={this.props.onFlashChange}
+          autoCapture={this.props.autoCapture}
+          onAutoCaptureChange={this.props.onAutoCaptureChange}
+          onDocumentCapture={onDocumentCapture}
+          goToScanEdit={goToScanEdit}
+          goToDocuments={goToDocuments}
+        />
+      </React.Fragment>
     );
   }
 
@@ -108,16 +141,22 @@ export default class Component extends React.PureComponent<Props> {
             rectangleCoordinates={capturedDocument.croppedPosition}
           />
         </View>
-
-        <View style={styles.row}>
-          <TextButton
-            style={styles.fullFlex}
-            title='Retake'
-            onPress={() => onDocumentRejected()} />
-          <RaisedTextButton
-            style={styles.fullFlex}
-            title='Continue'
-            onPress={() => this.customCrop.crop()} />
+        <View style={styles.cropActionWrap}>
+          <Text style={styles.cropNote}>Adjest the edges. You can re-crop anytime.</Text>
+          <View style={styles.cropBtnWrap}>
+            <TextButton
+              style={styles.retakeBtn}
+              titleStyle={styles.cropBtnText}
+              titleColor={colors.secondaryText}
+              title='Retake'
+              onPress={() => onDocumentRejected()} />
+            <RaisedTextButton
+              style={styles.confirmBtn}
+              title='Continue'
+              titleStyle={styles.cropBtnText}
+              titleColor={colors.secondaryText}
+              onPress={() => this.customCrop.crop()} />
+          </View>
         </View>
       </View>
     );

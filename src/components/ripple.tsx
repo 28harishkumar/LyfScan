@@ -7,6 +7,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   I18nManager,
+  ViewProps,
+  TouchableOpacityProps,
 } from 'react-native';
 
 const radius = 10;
@@ -27,8 +29,31 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: add types<
-export default class Ripple extends PureComponent<any, any> {
+type Props = ViewProps & TouchableOpacityProps & {
+  onLayout?: (e) => void;
+  onPress?: (e) => void;
+  onLongPress?: (e) => void;
+  rippleColor?: string;
+  rippleOpacity?: number;
+  rippleDuration?: number;
+  rippleSize?: number;
+  rippleContainerBorderRadius?: number;
+  rippleCentered?: boolean;
+  rippleSequential?: boolean;
+  rippleFades?: boolean;
+  disabled?: boolean;
+
+  onRippleAnimation?: (animation, callback) => void;
+};
+
+type State = {
+  width: number;
+  height: number;
+  ripples: any[];
+};
+
+
+export default class Ripple extends PureComponent<Props, State> {
   static defaultProps = {
     rippleColor: 'rgb(0, 0, 0)',
     rippleOpacity: 0.30,
