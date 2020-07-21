@@ -68,7 +68,7 @@ export default class Component extends React.PureComponent<Props> {
     return (
       <View style={styles.fullFlex}>
         {this.renderConfirmModal()}
-        <Scanner 
+        <Scanner
           useFalsh={this.props.useFlash}
           onDocumentCapture={onDocumentCapture} />
         <View style={styles.row}>

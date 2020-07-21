@@ -11,16 +11,16 @@ type Props = {
   pdfDocument: SavedDocumentProps;
   saveDocument: (pdfDocument: SavedDocumentProps) => void;
   navigation: any;
-}
+};
 
 class EditScan extends React.PureComponent<Props> {
   onSave = () => {
     const {
-      saveDocument,
+      saveDocument: saveScannedDocument,
       pdfDocument,
     } = this.props;
 
-    saveDocument(pdfDocument);
+    saveScannedDocument(pdfDocument);
     this.props.navigation.navigate('DocumentList');
   }
 

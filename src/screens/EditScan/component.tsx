@@ -11,7 +11,7 @@ type Props = {
 };
 
 class Component extends React.PureComponent<Props> {
-  render(){
+  render() {
     const { pdfDocument } = this.props;
     const doc = pdfDocument.documents[0];
 
@@ -22,7 +22,7 @@ class Component extends React.PureComponent<Props> {
           <Text>Original uri: {doc.originalUri}</Text>
           <Text>Cropped uri: {doc.croppedUri}</Text>
           <Text>Findal uri: {doc.finalUri}</Text>
-          <Image 
+          <Image
             source={{ uri: doc.finalUri, width: 200, height: 200 }} />
         </View>
         <RaisedTextButton
@@ -30,7 +30,7 @@ class Component extends React.PureComponent<Props> {
           onPress={this.props.onSave}
         />
       </View>
-    )
+    );
   }
 }
 

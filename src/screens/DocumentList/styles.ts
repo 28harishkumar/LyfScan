@@ -27,6 +27,6 @@ export default StyleSheet.create({
     width: '100%',
   },
   pdfModal: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

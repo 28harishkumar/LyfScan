@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 
 type Props = {
   navigation: any;
-}
+};
 
 class EditDocument extends React.PureComponent<Props> {
   render() {

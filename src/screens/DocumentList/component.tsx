@@ -101,7 +101,7 @@ class Component extends React.PureComponent<Props> {
             resizeMode='cover'
             source={{ uri: documentItem.thumbnailUri }} />
         </TouchableOpacity>
-        <View style={{padding: 5}}> 
+        <View style={{padding: 5}}>
           <Menu renderer={renderers.SlideInMenu}>
             <MenuTrigger text={documentItem.name} />
             <MenuOptions>
@@ -127,7 +127,7 @@ class Component extends React.PureComponent<Props> {
           </Menu>
         </View>
       </View>
-    )
+    );
   };
 
   renderDocuments = () => {
@@ -165,7 +165,7 @@ class Component extends React.PureComponent<Props> {
         ListEmptyComponent={this.renderEmptyDocumentComponent}
         numColumns={2}
       />
-    )
+    );
 
   }
 
@@ -183,11 +183,11 @@ class Component extends React.PureComponent<Props> {
   renderDocumentView = () => {
     const { viewDocument } = this.props;
 
-    if(!viewDocument) return false;
+    if (!viewDocument) { return false; }
 
     // TODO: move to components
     return (
-      <Modal 
+      <Modal
         onDismiss={() => this.props.setViewDocument(null)}
         visible={true}>
         <Pdf
@@ -195,7 +195,7 @@ class Component extends React.PureComponent<Props> {
           style={styles.pdfModal}
         />
       </Modal>
-    )
+    );
   }
 
   render() {
@@ -209,7 +209,7 @@ class Component extends React.PureComponent<Props> {
         {this.renderDocuments()}
         {this.renderBottomMenu()}
       </React.Fragment>
-    )
+    );
   }
 }
 export { Component };

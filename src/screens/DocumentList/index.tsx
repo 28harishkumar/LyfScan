@@ -10,18 +10,18 @@ import { SavedDocumentProps } from '@src/types/doc';
 type Props = DocumentListState & {
   navigation: any;
   selectViewDocument: (doc: SavedDocumentProps) => void;
-}
+};
 
 class DocumentList extends React.PureComponent<Props> {
   setViewDocument = (doc: SavedDocumentProps) => {
-    const { selectViewDocument } = this.props;
+    const { selectViewDocument: selectDocument } = this.props;
 
-    selectViewDocument(doc);
+    selectDocument(doc);
   }
 
   render() {
     return (
-      <Component 
+      <Component
         currentFolder={this.props.currentFolder}
         showSearch={this.props.showSearch}
         viewDocument={this.props.viewDocument}

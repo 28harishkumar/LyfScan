@@ -40,7 +40,7 @@ export async function IntiDirectory() {
       documents: [],
       deepthNumber: 1,
       parentFolderId: '0',
-    }
+    },
   ];
 
   if (!content) {

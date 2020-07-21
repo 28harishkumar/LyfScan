@@ -13,7 +13,7 @@ export const saveDocument = (pdfDocument: SavedDocumentProps) => {
     // TODO: finalUri will be set by filters in EditScan Screen
 
     pdfDocument.documents = pdfDocument.documents.map(d => {
-      if(!d.finalUri) {
+      if (!d.finalUri) {
         d.finalUri = d.croppedUri;
       }
 

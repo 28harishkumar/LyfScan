@@ -14,7 +14,7 @@ async function getDocuments (folderId?: string) {
       .pop()
       .documents;
 
-  } catch(e) {
+  } catch (e) {
     return [];
   }
 }
@@ -26,8 +26,6 @@ async function storeDocument(pdfDocument: SavedDocumentProps) {
       name: pdfDocument.name,
       quality: 0.70, // optional compression paramter
     };
-
-    console.log('imagePaths', options.imagePaths)
 
     const pdf = await RNImageToPdf.createPDFbyImages(options);
     const folderId = pdfDocument.folderId;
