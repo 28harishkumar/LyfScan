@@ -21,6 +21,7 @@ import {
 } from '@src/actions/scanner';
 import Component from './component';
 import { refreshDocuments } from '@src/actions/documentList';
+import { ScannerManager } from '@28harishkumar/react-native-scanner';
 
 // TODO: add Props type
 type Props = any;
@@ -94,6 +95,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
+      ScannerManager.stop();
       this.props.navigation.navigate('EditScan');
     }
   };
@@ -104,6 +106,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     if (!capturedDocument && !confirmedDocuments) {
       this.props.dispatch(resetScannerState());
       this.props.dispatch(refreshDocuments('2'));
+      ScannerManager.stop();
       this.props.navigation.navigate('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
@@ -112,6 +115,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
   forceGoToDocuments = () => {
     this.props.dispatch(resetScannerState());
+    ScannerManager.stop();
     this.props.navigation.navigate('DocumentList');
   }
 
