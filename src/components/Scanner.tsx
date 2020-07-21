@@ -18,7 +18,7 @@ import {
   Platform,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
-import PDFScanner from '@woonivers/react-native-document-scanner';
+import ScannerComponent from '@28harishkumar/react-native-scanner';
 
 export default function Scanner(props) {
   const pdfScannerElement = useRef(null);
@@ -58,12 +58,12 @@ export default function Scanner(props) {
 
   return (
     <React.Fragment>
-      <PDFScanner
+      <ScannerComponent
         ref={pdfScannerElement}
         style={styles.scanner}
         onPictureTaken={props.onDocumentCapture}
         overlayColor='rgba(255,130,0, 0.7)'
-        enableTorch={false}
+        enableTorch={props.useFlash}
         quality={0.5}
         detectionCountBeforeCapture={5}
         detectionRefreshRateInMS={50}

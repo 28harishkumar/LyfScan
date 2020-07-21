@@ -1,16 +1,44 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import {
+  saveDocument,
+} from '@src/actions/editScan';
+import { SavedDocumentProps } from '@src/types/doc';
 
+import { Component } from './component';
 
-class EditScan extends React.PureComponent {
+type Props = {
+  pdfDocument: SavedDocumentProps;
+  saveDocument: (pdfDocument: SavedDocumentProps) => void;
+  navigation: any;
+}
+
+class EditScan extends React.PureComponent<Props> {
+  onSave = () => {
+    const {
+      saveDocument,
+      pdfDocument,
+    } = this.props;
+
+    saveDocument(pdfDocument);
+    this.props.navigation.navigate('DocumentList');
+  }
+
   render() {
     return (
-      <View>
-        <Text>Edit Document is in progress</Text>
-      </View>
+      <Component
+        pdfDocument={this.props.pdfDocument}
+        onSave={this.onSave}
+      />
     );
   }
 }
 
-export default connect(state => ({}))(EditScan);
+const mapStateToProps = state => state.editScan;
+
+const mapDispatchToProps = dispatch => ({
+  saveDocument: (pdfDocument: SavedDocumentProps) => dispatch(saveDocument(pdfDocument)),
+  dispatch,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditScan);

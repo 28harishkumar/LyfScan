@@ -1,16 +1,42 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import {
+  refreshDocuments, selectViewDocument,
+} from '@src/actions/documentList';
+import { Component } from './component';
+import { DocumentListState } from '@src/types/screens/docoumentList';
+import { SavedDocumentProps } from '@src/types/doc';
 
+type Props = DocumentListState & {
+  navigation: any;
+  selectViewDocument: (doc: SavedDocumentProps) => void;
+}
 
-class DocumentList extends React.PureComponent {
+class DocumentList extends React.PureComponent<Props> {
+  setViewDocument = (doc: SavedDocumentProps) => {
+    const { selectViewDocument } = this.props;
+
+    selectViewDocument(doc);
+  }
+
   render() {
     return (
-      <View>
-        <Text>Document List is next in queue</Text>
-      </View>
+      <Component 
+        currentFolder={this.props.currentFolder}
+        showSearch={this.props.showSearch}
+        viewDocument={this.props.viewDocument}
+        setViewDocument={this.setViewDocument}
+      />
     );
   }
 }
 
-export default connect(state => ({}))(DocumentList);
+const mapStateToProps = state => state.documentList;
+
+const mapDispatchToProps = dispatch => ({
+  refreshDocuments: folderId => dispatch(refreshDocuments(folderId)),
+  selectViewDocument: doc => dispatch(selectViewDocument(doc)),
+  dispatch,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentList);
