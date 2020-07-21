@@ -21,30 +21,45 @@ This apps is under development. Expected beta version release 22nd August 2020.
 
 ## Screen Designs
 
-![LyfScan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/promo_banner.jpeg | width=400)
-
-![Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg | width=400)
-
-![Handwritten Paper](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg | width=400)
-
-![OCR](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg | width=400)
-
-![Photo Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg | width=400)
-
-![Contact Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg | width=400)
-
-![Multiple Document Scan](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg | width=400)
-
-![Document Screen](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg | width=400)
-
-![Document Actions](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg | width=400)
-
-![Account Screen](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/account.jpeg | width=400)
-
-![Contact Tab](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contacts.jpeg | width=400)
-
-![Login](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/login.jpeg | width=400)
-
-![LyfScan Share](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/lyfscan_share.jpeg | width=400)
-
-![Splash](https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/splash.jpeg | width=400)
+<p float="left">
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/promo_small.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/promo_small.jpeg" width="100%"/>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-tab.jpeg" width="400" style="margin:10px"/>
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/handwritten-tab.jpeg" width="400" />
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/ocr-tab.jpeg" width="400" />
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/photo-tab.jpeg" width="400" />
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contact-tab.jpeg | width=400" width="400" />
+</kbd>
+<kbd>
+ <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/document-edit.jpeg" width="400" />
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg | width=400" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/documents.jpeg | width=400" width="400" />
+</kbd>
+<kbd>
+  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/doc_actions.jpeg" width="400" />
+</kbd>
+<kbd>
+  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/account.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/account.jpeg" width="400" />
+</kbd>
+<kbd>
+<img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contacts.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/contacts.jpeg" width="400" />
+</kbd>
+<kbd>
+  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/login.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/login.jpeg" width="400" />
+</kbd>
+<kbd>
+  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/lyfscan_share.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/lyfscan_share.jpeg " width="400" />
+</kbd>
+<kbd>
+  <img src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/splash.jpeg" data-canonical-src="https://lyflink.s3.ap-south-1.amazonaws.com/media/app-screens/splash.jpeg" width="400" />
+  </kbd>
+</p>
