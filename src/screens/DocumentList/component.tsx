@@ -37,6 +37,7 @@ type Props = {
   openCamera: () => void;
   showPreferences: () => void;
   setViewDocument: (pdfDocuemnt: SavedDocumentProps) => void;
+  modifyDocument: (pdfDocuemnt: SavedDocumentProps) => void;
 };
 
 class Component extends React.PureComponent<Props> {
@@ -199,7 +200,7 @@ class Component extends React.PureComponent<Props> {
   }
 
   renderEmptyDocumentComponent = () => (
-    <View style={styles.containerPadding}>
+    <View style={styles.emptyContainer}>
       <Text>No Document in this folder. Scan now!</Text>
     </View>
   )
@@ -210,7 +211,7 @@ class Component extends React.PureComponent<Props> {
 
     if (documentItem.id === '-1') {
       // This is empty document for keeping alignment for last document
-      return null;
+      return <View style={{ flex: 1 }}></View>;
     }
 
     // TODO: move menu to components
@@ -229,7 +230,7 @@ class Component extends React.PureComponent<Props> {
               <MenuOption onSelect={() => Alert.alert(`Delete`)} >
                 <Text style={{ padding: 8 }}>Move to folder</Text>
               </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+              <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
                 <Text style={{ padding: 8 }}>Modify Scan</Text>
               </MenuOption>
               <MenuOption onSelect={() => Alert.alert(`Delete`)} >
@@ -280,6 +281,7 @@ class Component extends React.PureComponent<Props> {
       <FlatList
         data={documents}
         style={styles.documentList}
+        contentContainerStyle={styles.documentListConatainer}
         renderItem={this.renderDocumentItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderFolders}

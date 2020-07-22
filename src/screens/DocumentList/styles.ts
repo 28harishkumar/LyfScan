@@ -62,7 +62,11 @@ export default StyleSheet.create({
   documentList: {
     flex: 1,
   },
-  containerPadding: {
+  documentListConatainer: {
+    paddingBottom: 100,
+  },
+  emptyContainer: {
+    flex: 1,
     padding: 8,
   },
   docContainer: {

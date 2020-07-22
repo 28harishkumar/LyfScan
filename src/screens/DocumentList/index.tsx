@@ -12,13 +12,12 @@ type Props = DocumentListState & {
   createFolder: (folder: FolderProps) => void;
   setSearchOpen: (value: boolean) => void;
   filterDocuments: (name: string) => void;
+  modifyDocument: (pdfDocuemnt: SavedDocumentProps) => void;
 };
 
 class DocumentList extends React.PureComponent<Props> {
   setViewDocument = (doc: SavedDocumentProps) => {
-    const { selectViewDocument: selectDocument } = this.props;
-
-    selectDocument(doc);
+    this.props.selectViewDocument(doc);
   }
 
   openSearch = () => {
@@ -51,6 +50,11 @@ class DocumentList extends React.PureComponent<Props> {
     this.props.navigation.navigate('Account');
   }
 
+  modifyDocument = (doc: SavedDocumentProps) => {
+    this.props.modifyDocument(doc);
+    this.props.navigation.navigate('EditScan');
+  }
+
   render() {
     return (
       <Component
@@ -65,6 +69,7 @@ class DocumentList extends React.PureComponent<Props> {
         refreshDocuments={this.refreshDocuments}
         openCamera={this.openCamera}
         showPreferences={this.showPreferences}
+        modifyDocument={this.modifyDocument}
       />
     );
   }
@@ -78,6 +83,7 @@ const mapDispatchToProps = dispatch => ({
   createFolder: folderId => dispatch(actions.createFolder(folderId)),
   setSearchOpen: value => dispatch(actions.setSearchOpen(value)),
   filterDocuments: name => dispatch(actions.filterDocuments(name)),
+  modifyDocument: doc => dispatch(actions.modifyDocument(doc)),
   dispatch,
 });
 

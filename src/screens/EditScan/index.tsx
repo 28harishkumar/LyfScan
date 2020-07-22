@@ -21,7 +21,10 @@ class EditScan extends React.PureComponent<Props> {
     } = this.props;
 
     saveScannedDocument(pdfDocument);
-    this.props.navigation.navigate('DocumentList');
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'Scanner' }, { name: 'DocumentList' }],
+    });
   }
 
   render() {

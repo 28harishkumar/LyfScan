@@ -89,7 +89,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
 
     return {
-      name: Utilities.getDate(null, 'DD-MM-YYYY') + '.pdf',
+      name: Utilities.getDate(null, 'DD-MM-YYYY-Z') + '.pdf',
       create_time: new Date(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
@@ -109,6 +109,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
+      this.props.dispatch(resetScannerState());
       this.props.navigation.navigate('EditScan');
     }
   };

@@ -42,5 +42,10 @@ export const filterDocuments = (name: string) => {
   }
 };
 
+export const modifyDocument = (pdfDocument: SavedDocumentProps) => ({
+  type: Constants.MODIFY_DOCUMENT,
+  pdfDocument,
+});
+
 
 // TODO: more actions are in progress

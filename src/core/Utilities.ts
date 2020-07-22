@@ -21,6 +21,9 @@ export function getDate(date: Date, _format: string): string {
       return `${dateOnly}/${month}/${year}`;
     case 'DD-MM-YYYY':
       return `${dateOnly}-${month}-${year}`;
+    case 'DD-MM-YYYY-Z':
+      // used for default pdf name
+      return `${dateOnly}-${month}-${year}-${date.getTime()}`;
     default:
       return '';
   }
