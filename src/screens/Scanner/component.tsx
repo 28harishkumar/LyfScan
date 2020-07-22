@@ -9,29 +9,37 @@ import CustomCrop from 'react-native-perspective-image-cropper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TextButton, RaisedTextButton } from '@src/components/button';
 import colors from '@src/core/colors';
-import Ripple from '@src/components/ripple';
 import { ScannedDocumentProps } from '@src/types/doc';
 import { FlashProps } from '@src/types/screens/scanner';
 import Scanner from './Scanner';
 import styles from './styles';
-import {  } from 'react-native-gesture-handler';
 
-// TODO: types for Props
-type Props = any & {
+type Props = {
   activeTab: number;
   useFlash: FlashProps;
   popupConfirmed: boolean;
   autoCapture: boolean;
   askScanRejection: boolean;
+  showDocumentPreview: boolean;
   capturedDocument: ScannedDocumentProps;
   confirmedDocuments: ScannedDocumentProps[];
+  ocrLanguage: string;
+  showOCRLanguageList: boolean;
+
   onDocumentCapture: (data) => void;
   onDocumentRejected: () => void;
   onDocumentAccepted: (image, url, coordinates) => void;
   rejectGoToDocuments: () => void;
   forceGoToDocuments: () => void;
+  onFlashChange: (useFlash: FlashProps) => void;
+  onAutoCaptureChange: (autoCapture: boolean) => void;
   goToScanEdit: () => void;
   goToDocuments: () => void;
+
+  onTabChange: (activeTab: number) => void;
+  onPopupConfirmed: () => void;
+  onOCRLanguageRequest: () => void;
+  onOCRLanguageChange: (language: string) => void;
 };
 
 export default class Component extends React.PureComponent<Props> {
@@ -123,7 +131,6 @@ export default class Component extends React.PureComponent<Props> {
           confirmedDocuments={confirmedDocuments}
           onDocumentCapture={onDocumentCapture}
           goToScanEdit={goToScanEdit}
-          goToDocuments={goToDocuments}
         />
       </React.Fragment>
     );

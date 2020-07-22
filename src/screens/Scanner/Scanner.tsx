@@ -21,10 +21,17 @@ import colors from '@src/core/colors';
 import { ScannedDocumentProps } from '@src/types/doc';
 import { ScannerTabs } from '@src/core/constants';
 import styles from './styles';
+import { FlashProps } from '@src/types/screens/scanner';
 
-// TODO:
-type Props = any & {
-  confirmedDocuments: ScannedDocumentProps;
+type Props = {
+  confirmedDocuments: ScannedDocumentProps[];
+  useFlash: FlashProps;
+  autoCapture: boolean;
+  activeTab: number;
+  onFlashChange: (value: string) => void;
+  onAutoCaptureChange: (value: boolean) => void;
+  goToScanEdit: () => void;
+  onDocumentCapture: (data: any) => void;
 };
 
 type State = {

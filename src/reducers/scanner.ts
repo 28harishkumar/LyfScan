@@ -16,7 +16,7 @@ const initialState: ScannerState = {
   autoCapture: true,
 
   askScanRejection: false,
-  orcLanguage: 'en',
+  ocrLanguage: 'en',
   showOCRLanguageList: false,
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Alert, BackHandler } from 'react-native';
-import { FlashProps } from '@src/types/screens/scanner';
+import { FlashProps, ScannerState } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps, RectCoordinates } from '@src/types/doc';
 import * as Utilities from '@src/core/Utilities';
 import {
@@ -22,8 +22,20 @@ import {
 import Component from './component';
 import { refreshDocuments } from '@src/actions/documentList';
 
-// TODO: add Props type
-type Props = any;
+type Props = ScannerState & {
+  dispatch: (e) => void;
+  navigation: any;
+  onTabChange: (activeTab: number) => void;
+  onPopupConfirmed: () => void;
+  onOCRLanguageRequest: () => void;
+  onOCRLanguageChange: (language: string) => void;
+  onFlashChange: (useFlash: FlashProps) => void;
+  onAutoCaptureChange: (autoCapture: boolean) => void;
+  onDocumentCapture: (capturedDocument: ScannedDocumentProps) => void;
+  onDocumentAccepted: (capturedDocument: ScannedDocumentProps) => void;
+  onDocumentRejected: () => void;
+  showScanNotSavedWarning: (askScanRejection: boolean) => void;
+};
 
 class ScannerContainer extends React.PureComponent<Props> {
   componentDidMount() {
@@ -181,11 +193,11 @@ class ScannerContainer extends React.PureComponent<Props> {
       popupConfirmed={this.props.popupConfirmed}
       capturedDocument={this.props.capturedDocument}
       confirmedDocuments={this.props.confirmedDocuments}
-      showDocumentPreview={this.props.showDocumentPreview}
+      showDocumentPreview={!!this.props.capturedDocument}
       useFlash={this.props.useFlash}
       autoCapture={this.props.autoCapture}
       askScanRejection={this.props.askScanRejection}
-      orcLanguage={this.props.orcLanguage}
+      ocrLanguage={this.props.ocrLanguage}
       showOCRLanguageList={this.props.showOCRLanguageList}
       onTabChange={this.props.onTabChange}
       onPopupConfirmed={this.props.onPopupConfirmed}
