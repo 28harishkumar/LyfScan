@@ -59,7 +59,6 @@ class ScannerContainer extends React.PureComponent<Props> {
       width: data.width,
     };
 
-    ScannerManager.stop();
     this.props.onDocumentCapture(capturedDocument);
   }
 
@@ -110,7 +109,6 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
-      ScannerManager.stop();
       this.props.navigation.navigate('EditScan');
     }
   };
@@ -124,7 +122,6 @@ class ScannerContainer extends React.PureComponent<Props> {
     if (!capturedDocument && !confirmedDocuments) {
       this.props.dispatch(resetScannerState());
       this.props.dispatch(refreshDocuments('2'));
-      ScannerManager.stop();
       this.props.navigation.navigate('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
@@ -136,10 +133,13 @@ class ScannerContainer extends React.PureComponent<Props> {
    */
   forceGoToDocuments = () => {
     this.props.dispatch(resetScannerState());
-    ScannerManager.stop();
+    this.props.dispatch(refreshDocuments('2'));
     this.props.navigation.navigate('DocumentList');
   }
 
+  /**
+   * Show warning before discarding Scans
+   */
   rejectGoToDocuments = () => {
     this.props.showScanNotSavedWarning(false);
   }
@@ -152,17 +152,21 @@ class ScannerContainer extends React.PureComponent<Props> {
    * @param croppedPosition Corodinates
    */
   onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
-    const {
-      onDocumentAccepted: onDocumentAcceptedAction,
-      capturedDocument,
-    } = this.props;
+    const { capturedDocument } = this.props;
     const croppedDocument: ScannedDocumentProps = {
       ...capturedDocument,
       finalUri,
       croppedPosition,
     };
 
-    onDocumentAcceptedAction(croppedDocument);
+    this.props.onDocumentAccepted(croppedDocument);
+  }
+
+  /**
+   * On Scan image rejection (retake)
+   */
+  onDocumentRejected = () => {
+    this.props.onDocumentRejected();
   }
 
   render() {
@@ -185,7 +189,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       onAutoCaptureChange={this.props.onAutoCaptureChange}
       onDocumentCapture={this.onDocumentCapture}
       onDocumentAccepted={this.onDocumentAccepted}
-      onDocumentRejected={this.props.onDocumentRejected}
+      onDocumentRejected={this.onDocumentRejected}
       goToScanEdit={this.goToScanEdit}
       goToDocuments={this.goToDocuments}
       forceGoToDocuments={this.forceGoToDocuments}

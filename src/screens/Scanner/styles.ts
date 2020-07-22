@@ -42,7 +42,6 @@ export default StyleSheet.create({
   },
   scanner: {
     flex: 1,
-    top: -25, // to fix extra margin on top
     aspectRatio: undefined,
   },
   button: {
