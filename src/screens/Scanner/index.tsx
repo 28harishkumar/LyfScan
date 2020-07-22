@@ -35,11 +35,19 @@ class ScannerContainer extends React.PureComponent<Props> {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
+  /**
+   * on device back button press
+   */
   handleBackButtonClick = () => {
     this.goToDocuments();
     return true;
   }
 
+  /**
+   * Camera capture
+   *
+   * @param data Scanner module response on camera capture
+   */
   onDocumentCapture = (data) => {
     const capturedDocument: ScannedDocumentProps = {
       originalUri: data.initialImage,
@@ -51,9 +59,13 @@ class ScannerContainer extends React.PureComponent<Props> {
       width: data.width,
     };
 
+    ScannerManager.stop();
     this.props.onDocumentCapture(capturedDocument);
   }
 
+  /**
+   * Format images into SavedDocumentProps form
+   */
   getPDFDocument = (): SavedDocumentProps => {
     const { pdfDocument, confirmedDocuments } = this.props;
 
@@ -90,6 +102,9 @@ class ScannerContainer extends React.PureComponent<Props> {
     };
   }
 
+  /**
+   * Proceed to edit Scanned Images to generate PDF/ OCR
+   */
   goToScanEdit = () => {
     const pdfDocument: SavedDocumentProps = this.getPDFDocument();
 
@@ -100,6 +115,9 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
   };
 
+  /**
+   * Navigate to document screen
+   */
   goToDocuments = () => {
     const { capturedDocument, confirmedDocuments } = this.props;
 
@@ -113,6 +131,9 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
   }
 
+  /**
+   * Discard current Scans and Navigate to document screen
+   */
   forceGoToDocuments = () => {
     this.props.dispatch(resetScannerState());
     ScannerManager.stop();
@@ -123,6 +144,13 @@ class ScannerContainer extends React.PureComponent<Props> {
     this.props.showScanNotSavedWarning(false);
   }
 
+  /**
+   * User confirmed final image
+   *
+   * @param image base64
+   * @param finalUri string
+   * @param croppedPosition Corodinates
+   */
   onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
     const {
       onDocumentAccepted: onDocumentAcceptedAction,

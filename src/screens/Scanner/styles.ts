@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '@src/core/colors';
 
 export default StyleSheet.create({
@@ -27,10 +27,18 @@ export default StyleSheet.create({
   header: {
     backgroundColor: colors.primary,
     height: 50,
-    // flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   homeIcon: {
     margin: 8,
+  },
+  tourBtn: {
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   scanner: {
     flex: 1,
@@ -42,6 +50,29 @@ export default StyleSheet.create({
     alignSelf: 'center',
     // position: 'absolute',
     bottom: 32,
+  },
+  tabList: {
+    height: 50,
+  },
+  tabListContainer: {
+    paddingHorizontal: Dimensions.get('screen').width / 2 - 50,
+  },
+  tabView: {
+    padding: 13,
+    justifyContent: 'center',
+  },
+  tabText: {
+    color: colors.primayText,
+    paddingBottom: 5,
+  },
+  activeTabText: {
+    color: colors.highlightText,
+    paddingBottom: 5,
+  },
+  activeTabBorder: {
+    height: 3,
+    backgroundColor: colors.highlightBorder,
+    borderRadius: 4,
   },
   footer: {
     height: 80,

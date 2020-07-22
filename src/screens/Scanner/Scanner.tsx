@@ -6,6 +6,7 @@
 import React from 'react';
 
 import {
+  FlatList,
   View,
   Platform,
   Image,
@@ -17,6 +18,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ripple from '@src/components/ripple';
 import colors from '@src/core/colors';
 import { ScannedDocumentProps } from '@src/types/doc';
+import { ScannerTabs } from '@src/core/constants';
 import styles from './styles';
 
 // TODO:
@@ -66,6 +68,7 @@ export default class Scanner extends React.PureComponent<Props, State> {
       return onFlashChange('on');
     }
 
+    // TODO: auto is not accepted by NativeModule
     // if (useFlash === 'auto') {
     //   return onFlashChange('on');
     // }
@@ -75,17 +78,47 @@ export default class Scanner extends React.PureComponent<Props, State> {
     this.props.goToScanEdit();
   }
 
-  renderTabs = () => {
+  renderScannerTab = ({ item: tab, index }) => {
+    const { activeTab } = this.props;
+    const isActiveTab = activeTab === index;
+    const {
+      tabText,
+      activeTabText,
+    } = styles;
 
+    const textStyle = isActiveTab ? activeTabText : tabText;
+    return (
+      <Ripple>
+        <View style={styles.tabView}>
+          <Text style={textStyle}>{tab.name}</Text>
+          {isActiveTab && <View style={styles.activeTabBorder}></View>}
+        </View>
+      </Ripple>
+    );
+  }
+
+  renderTabs = () => {
+    return (
+      <View style={styles.tabList}>
+        <FlatList
+          horizontal={true}
+          data={ScannerTabs}
+          renderItem={this.renderScannerTab}
+          keyExtractor={item => item.name}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabListContainer}
+          />
+      </View>
+    );
   }
 
   renderActions = () => {
+    let uri = null;
     const {
       useFlash,
       autoCapture,
       confirmedDocuments,
     } = this.props;
-    let uri = null;
 
     if (confirmedDocuments) {
       uri = confirmedDocuments[0].originalUri;
