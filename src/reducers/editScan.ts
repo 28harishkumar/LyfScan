@@ -12,8 +12,8 @@ const initialState: EditScanState = {
   documentModified: false,
   confirmModificationRejection: false,
   showPageReorder: false,
-  showColourOptions: false,
-  applyColourToAll: false,
+  showColorOptions: false,
+  applyColorToAll: false,
   showDeletePageWarning: false,
   showRecropOnImage: false,
 };

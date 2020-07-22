@@ -21,7 +21,6 @@ import {
 } from '@src/actions/scanner';
 import Component from './component';
 import { refreshDocuments } from '@src/actions/documentList';
-import { ScannerManager } from '@28harishkumar/react-native-scanner';
 
 // TODO: add Props type
 type Props = any;
@@ -33,6 +32,15 @@ class ScannerContainer extends React.PureComponent<Props> {
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  prepareSafeLeave = (screen: string) => {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    this.props.dispatch(resetScannerState());
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'DocumentList' }],
+    });
   }
 
   /**
@@ -109,8 +117,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
-      this.props.dispatch(resetScannerState());
-      this.props.navigation.navigate('EditScan');
+      this.prepareSafeLeave('EditScan');
     }
   };
 
@@ -121,9 +128,8 @@ class ScannerContainer extends React.PureComponent<Props> {
     const { capturedDocument, confirmedDocuments } = this.props;
 
     if (!capturedDocument && !confirmedDocuments) {
-      this.props.dispatch(resetScannerState());
       this.props.dispatch(refreshDocuments('2'));
-      this.props.navigation.navigate('DocumentList');
+      this.prepareSafeLeave('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
     }
@@ -133,9 +139,8 @@ class ScannerContainer extends React.PureComponent<Props> {
    * Discard current Scans and Navigate to document screen
    */
   forceGoToDocuments = () => {
-    this.props.dispatch(resetScannerState());
+    this.prepareSafeLeave('DocumentList');
     this.props.dispatch(refreshDocuments('2'));
-    this.props.navigation.navigate('DocumentList');
   }
 
   /**

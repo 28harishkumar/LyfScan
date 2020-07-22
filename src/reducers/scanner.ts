@@ -32,6 +32,7 @@ export default function reducer(state = initialState, action: ScannerActionProps
         popupConfirmed: false,
         pdfDocument: null,
         capturedDocument: null,
+        confirmedDocuments: null,
         showDocumentPreview: false,
         askScanRejection: false,
         showOCRLanguageList: false,

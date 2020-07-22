@@ -6,14 +6,40 @@ import {
 import { SavedDocumentProps } from '@src/types/doc';
 
 import { Component } from './component';
+import { BackHandler } from 'react-native';
+import { EditScanState } from '@src/types/screens/editScan';
 
-type Props = {
+type Props = EditScanState & {
   pdfDocument: SavedDocumentProps;
   saveDocument: (pdfDocument: SavedDocumentProps) => void;
   navigation: any;
 };
 
 class EditScan extends React.PureComponent<Props> {
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  /**
+   * on device back button press
+   */
+  handleBackButtonClick = () => {
+    // TODO: if modification active then alert else to documents
+
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'DocumentList' }],
+    });
+    return true;
+  }
+
+  /**
+   * Save pdf file
+   */
   onSave = () => {
     const {
       saveDocument: saveScannedDocument,
@@ -23,7 +49,7 @@ class EditScan extends React.PureComponent<Props> {
     saveScannedDocument(pdfDocument);
     this.props.navigation.reset({
       index: 0,
-      routes: [{ name: 'Scanner' }, { name: 'DocumentList' }],
+      routes: [{ name: 'DocumentList' }],
     });
   }
 

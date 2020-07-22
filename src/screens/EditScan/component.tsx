@@ -23,7 +23,7 @@ class Component extends React.PureComponent<Props> {
           <Text>Cropped uri: {doc.croppedUri}</Text>
           <Text>Findal uri: {doc.finalUri}</Text>
           <Image
-            source={{ uri: doc.finalUri, width: 200, height: 200 }} />
+            source={{ uri: doc.croppedUri, width: 200, height: 200 }} />
         </View>
         <RaisedTextButton
           title='Save'
