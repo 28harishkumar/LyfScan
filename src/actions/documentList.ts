@@ -23,4 +23,24 @@ export const selectViewDocument = (viewDocument: SavedDocumentProps) => ({
   viewDocument,
 });
 
+
+export const createFolder = (folder: FolderProps) => {
+  // TODO: create folder
+  return {
+    type: Constants.CREATE_FOLDER,
+  };
+};
+
+export const setSearchOpen = (showSearch: boolean) => ({
+  type: Constants.SET_DOCUMENT_SEARCH,
+  showSearch,
+});
+
+export const filterDocuments = (name: string) => {
+  if (name) {
+    // TODO: search
+  }
+};
+
+
 // TODO: more actions are in progress
