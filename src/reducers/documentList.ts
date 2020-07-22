@@ -5,7 +5,7 @@ import {
 } from '@src/types/screens/docoumentList';
 
 const initialState: DocumentListState = {
-  tabIndex: 1,
+  tabIndex: 2,
   contacts: [],
   currentFolder: null,
   showSearch: false,
@@ -21,8 +21,7 @@ export default function reducer(state = initialState, action: DocumentListAction
 
   switch (actoinType) {
     case Constant.DOCUMENTS_TAB_CHANGE:
-    case Constant.SHOW_DOCUMENT_SEARCH:
-    case Constant.HIDE_DOCUMENT_SEARCH:
+    case Constant.SET_DOCUMENT_SEARCH:
     case Constant.SEARCH_TEXT_CHANGE:
     case Constant.VIEW_DOCUMENT:
     case Constant.LYFSCAN_DOCUMENT_SHARE:

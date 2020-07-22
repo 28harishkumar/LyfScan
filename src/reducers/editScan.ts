@@ -26,7 +26,12 @@ export default function reducer(state = initialState, action: EditScanActionProp
       return {
         ...initialState,
       };
+      break;
     case Constant.MODIFY_DOCUMENT:
+      return {
+        ...initialState,
+        ...restProps,
+      };
     case Constant.EDIT_DOCUMENT_NAME:
     case Constant.SET_DOCUMENT_NAME:
     case Constant.SET_DOCUMENT_NAME:

@@ -35,11 +35,19 @@ class ScannerContainer extends React.PureComponent<Props> {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
+  /**
+   * on device back button press
+   */
   handleBackButtonClick = () => {
     this.goToDocuments();
     return true;
   }
 
+  /**
+   * Camera capture
+   *
+   * @param data Scanner module response on camera capture
+   */
   onDocumentCapture = (data) => {
     const capturedDocument: ScannedDocumentProps = {
       originalUri: data.initialImage,
@@ -54,6 +62,9 @@ class ScannerContainer extends React.PureComponent<Props> {
     this.props.onDocumentCapture(capturedDocument);
   }
 
+  /**
+   * Format images into SavedDocumentProps form
+   */
   getPDFDocument = (): SavedDocumentProps => {
     const { pdfDocument, confirmedDocuments } = this.props;
 
@@ -78,7 +89,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
 
     return {
-      name: Utilities.getDate(null, 'DD-MM-YYYY') + '.pdf',
+      name: Utilities.getDate(null, 'DD-MM-YYYY-Z') + '.pdf',
       create_time: new Date(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
@@ -90,51 +101,73 @@ class ScannerContainer extends React.PureComponent<Props> {
     };
   }
 
+  /**
+   * Proceed to edit Scanned Images to generate PDF/ OCR
+   */
   goToScanEdit = () => {
     const pdfDocument: SavedDocumentProps = this.getPDFDocument();
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
-      ScannerManager.stop();
+      this.props.dispatch(resetScannerState());
       this.props.navigation.navigate('EditScan');
     }
   };
 
+  /**
+   * Navigate to document screen
+   */
   goToDocuments = () => {
     const { capturedDocument, confirmedDocuments } = this.props;
 
     if (!capturedDocument && !confirmedDocuments) {
       this.props.dispatch(resetScannerState());
       this.props.dispatch(refreshDocuments('2'));
-      ScannerManager.stop();
       this.props.navigation.navigate('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
     }
   }
 
+  /**
+   * Discard current Scans and Navigate to document screen
+   */
   forceGoToDocuments = () => {
     this.props.dispatch(resetScannerState());
-    ScannerManager.stop();
+    this.props.dispatch(refreshDocuments('2'));
     this.props.navigation.navigate('DocumentList');
   }
 
+  /**
+   * Show warning before discarding Scans
+   */
   rejectGoToDocuments = () => {
     this.props.showScanNotSavedWarning(false);
   }
 
+  /**
+   * User confirmed final image
+   *
+   * @param image base64
+   * @param finalUri string
+   * @param croppedPosition Corodinates
+   */
   onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
-    const {
-      onDocumentAccepted: onDocumentAcceptedAction,
-      capturedDocument,
-    } = this.props;
+    const { capturedDocument } = this.props;
     const croppedDocument: ScannedDocumentProps = {
       ...capturedDocument,
       finalUri,
       croppedPosition,
     };
 
-    onDocumentAcceptedAction(croppedDocument);
+    this.props.onDocumentAccepted(croppedDocument);
+  }
+
+  /**
+   * On Scan image rejection (retake)
+   */
+  onDocumentRejected = () => {
+    this.props.onDocumentRejected();
   }
 
   render() {
@@ -157,7 +190,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       onAutoCaptureChange={this.props.onAutoCaptureChange}
       onDocumentCapture={this.onDocumentCapture}
       onDocumentAccepted={this.onDocumentAccepted}
-      onDocumentRejected={this.props.onDocumentRejected}
+      onDocumentRejected={this.onDocumentRejected}
       goToScanEdit={this.goToScanEdit}
       goToDocuments={this.goToDocuments}
       forceGoToDocuments={this.forceGoToDocuments}

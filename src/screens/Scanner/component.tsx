@@ -1,15 +1,20 @@
 import React from 'react';
-import CustomCrop from 'react-native-perspective-image-cropper';
-import { View, Text } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
 import Modal from 'react-native-modal';
+import CustomCrop from 'react-native-perspective-image-cropper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TextButton, RaisedTextButton } from '@src/components/button';
 import colors from '@src/core/colors';
 import Ripple from '@src/components/ripple';
 import { ScannedDocumentProps } from '@src/types/doc';
+import { FlashProps } from '@src/types/screens/scanner';
 import Scanner from './Scanner';
 import styles from './styles';
-import { FlashProps } from '@src/types/screens/scanner';
+import {  } from 'react-native-gesture-handler';
 
 // TODO: types for Props
 type Props = any & {
@@ -45,17 +50,19 @@ export default class Component extends React.PureComponent<Props> {
   renderHeader = () => {
     return (
       <View style={styles.header}>
-        <Ripple
-          style={{ flex: 0, width: 100 }}
-          delayPressOut={200}
-          onLongPress={this.props.goToDocuments}
+        <TouchableOpacity
+          style={{ width: 100 }}
           onPress={this.props.goToDocuments}>
           <MaterialIcons
             name='home'
             size={34}
             style={styles.homeIcon}
             color={colors.secondaryIcon} />
-        </Ripple>
+        </TouchableOpacity>
+        <TextButton
+          titleColor={colors.secondaryText}
+          style={styles.tourBtn}
+          title='Take Tour' />
       </View>
     );
   }
@@ -108,11 +115,12 @@ export default class Component extends React.PureComponent<Props> {
         {this.renderConfirmModal()}
         {this.renderHeader()}
         <Scanner
-          confirmedDocuments={confirmedDocuments}
+          activeTab={this.props.activeTab}
           useFlash={this.props.useFlash}
           onFlashChange={this.props.onFlashChange}
           autoCapture={this.props.autoCapture}
           onAutoCaptureChange={this.props.onAutoCaptureChange}
+          confirmedDocuments={confirmedDocuments}
           onDocumentCapture={onDocumentCapture}
           goToScanEdit={goToScanEdit}
           goToDocuments={goToDocuments}
@@ -134,7 +142,7 @@ export default class Component extends React.PureComponent<Props> {
           <CustomCrop
             ref={ref => (this.customCrop = ref)}
             updateImage={onDocumentAccepted}
-            height={capturedDocument.height}
+            height={capturedDocument.height - 200}
             width={capturedDocument.width}
 
             initialImage={capturedDocument.originalUri}

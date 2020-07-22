@@ -2,6 +2,7 @@ import React from 'react';
 import {
   TouchableOpacity,
   FlatList,
+  TextInput,
   View,
   Text,
   Image,
@@ -17,20 +18,85 @@ import {
 } from 'react-native-popup-menu';
 import Pdf from 'react-native-pdf';
 import { FolderProps } from '@src/types/screens/docoumentList';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { SavedDocumentProps } from '@src/types/doc';
+import colors from '@src/core/colors';
+import Ripple from '@src/components/ripple';
+import BottomNavigation from '@src/components/BottomNavigation';
 import styles from './styles';
 
 type Props = {
+  tabIndex: number;
   currentFolder: FolderProps;
   showSearch: boolean;
   viewDocument: SavedDocumentProps;
+  openSearch: () => void;
+  closeSearch: () => void;
+  createFolder: () => void;
+  refreshDocuments: () => void;
+  openCamera: () => void;
+  showPreferences: () => void;
   setViewDocument: (pdfDocuemnt: SavedDocumentProps) => void;
+  modifyDocument: (pdfDocuemnt: SavedDocumentProps) => void;
 };
 
 class Component extends React.PureComponent<Props> {
   renderHeader = () => {
-    // TODO:
-    return null;
+    const { showSearch } = this.props;
+    // TODO: put animation when search input open
+
+    if (!showSearch) {
+      return (
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <MaterialIcons
+              name='home'
+              size={25}
+              style={styles.headerIcon}
+              color={colors.secondaryIcon}
+            />
+            <Text style={styles.logoText}>LyfScan</Text>
+          </View>
+          <View style={styles.headerContent}>
+            <Ripple onPress={this.props.openSearch}>
+              <MaterialIcons
+                name='search'
+                size={25}
+                style={styles.headerIcon}
+                color={colors.secondaryIcon}
+              />
+            </Ripple>
+            <Ripple onPress={this.props.createFolder}>
+              <MaterialIcons
+                name='create-new-folder'
+                size={25}
+                style={styles.headerIcon}
+                color={colors.secondaryIcon}
+              />
+            </Ripple>
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.header}>
+        <TextInput
+          style={styles.searchInput}
+          autoFocus
+        />
+        <View style={styles.headerContent}>
+          <Ripple onPress={this.props.closeSearch}>
+            <MaterialIcons
+              name='close'
+              size={25}
+              style={styles.headerIcon}
+              color={colors.secondaryIcon}
+            />
+          </Ripple>
+        </View>
+      </View>
+    );
   }
 
   renderSearchList = () => {
@@ -41,7 +107,32 @@ class Component extends React.PureComponent<Props> {
     }
 
     // TODO:
-    return null;
+    return (
+      <View style={styles.container}>
+        <Text>Search is under development.</Text>
+      </View>
+    );
+  }
+
+  renderrTabItem = ({ item: tab, index }) => {
+    const { tabIndex } = this.props;
+    const isActiveTab = tabIndex === index;
+    const {
+      tabText,
+      activeTabText,
+    } = styles;
+
+    const textStyle = isActiveTab ? activeTabText : tabText;
+
+    // TODO: onPress
+    return (
+      <Ripple>
+        <View style={styles.tabView}>
+          <Text style={textStyle}>{tab.name}</Text>
+          {isActiveTab && <View style={styles.activeTabBorder}></View>}
+        </View>
+      </Ripple>
+    );
   }
 
   renderTabs = () => {
@@ -51,8 +142,39 @@ class Component extends React.PureComponent<Props> {
       return null;
     }
 
-    // TODO:
-    return null;
+    // TODO: take from storage
+    const RootChildern = [
+      {
+        name: 'Shared',
+      },
+      {
+        name: 'Contacts',
+      },
+      {
+        name: 'Documents',
+      },
+      {
+        name: 'ID Cards',
+      },
+      {
+        name: 'Photos',
+      },
+      {
+        name: 'Passport',
+      },
+    ];
+
+    return (
+      <View style={styles.tabList}>
+        <FlatList
+          horizontal={true}
+          data={RootChildern}
+          renderItem={this.renderrTabItem}
+          keyExtractor={item => item.name}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    );
   }
 
   renderBreadcums = () => {
@@ -78,7 +200,7 @@ class Component extends React.PureComponent<Props> {
   }
 
   renderEmptyDocumentComponent = () => (
-    <View style={styles.containerPadding}>
+    <View style={styles.emptyContainer}>
       <Text>No Document in this folder. Scan now!</Text>
     </View>
   )
@@ -89,7 +211,7 @@ class Component extends React.PureComponent<Props> {
 
     if (documentItem.id === '-1') {
       // This is empty document for keeping alignment for last document
-      return null;
+      return <View style={{ flex: 1 }}></View>;
     }
 
     // TODO: move menu to components
@@ -101,14 +223,14 @@ class Component extends React.PureComponent<Props> {
             resizeMode='cover'
             source={{ uri: documentItem.thumbnailUri }} />
         </TouchableOpacity>
-        <View style={{padding: 5}}>
+        <View style={{ padding: 5 }}>
           <Menu renderer={renderers.SlideInMenu}>
             <MenuTrigger text={documentItem.name} />
             <MenuOptions>
               <MenuOption onSelect={() => Alert.alert(`Delete`)} >
                 <Text style={{ padding: 8 }}>Move to folder</Text>
               </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+              <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
                 <Text style={{ padding: 8 }}>Modify Scan</Text>
               </MenuOption>
               <MenuOption onSelect={() => Alert.alert(`Delete`)} >
@@ -159,6 +281,7 @@ class Component extends React.PureComponent<Props> {
       <FlatList
         data={documents}
         style={styles.documentList}
+        contentContainerStyle={styles.documentListConatainer}
         renderItem={this.renderDocumentItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderFolders}
@@ -170,14 +293,27 @@ class Component extends React.PureComponent<Props> {
   }
 
   renderBottomMenu = () => {
-    const { showSearch } = this.props;
+    const {
+      showSearch,
+      refreshDocuments,
+      openCamera,
+      showPreferences,
+    } = this.props;
 
     if (showSearch) {
       return null;
     }
 
-    // TODO:
-    return null;
+    return (
+      <BottomNavigation
+        onIconPress={[
+          refreshDocuments,
+          openCamera,
+          showPreferences,
+        ]}
+        activeIndex={0}
+       />
+    );
   }
 
   renderDocumentView = () => {

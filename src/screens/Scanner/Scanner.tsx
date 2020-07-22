@@ -6,6 +6,7 @@
 import React from 'react';
 
 import {
+  FlatList,
   View,
   Platform,
   Image,
@@ -14,9 +15,11 @@ import {
 import Permissions from 'react-native-permissions';
 import ScannerComponent from '@28harishkumar/react-native-scanner';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useIsFocused } from '@react-navigation/native';
 import Ripple from '@src/components/ripple';
 import colors from '@src/core/colors';
 import { ScannedDocumentProps } from '@src/types/doc';
+import { ScannerTabs } from '@src/core/constants';
 import styles from './styles';
 
 // TODO:
@@ -27,6 +30,27 @@ type Props = any & {
 type State = {
   allowed: boolean;
 };
+
+function RenderScanner(props) {
+  const { onDocumentCapture, useFlash, autoCapture, onRef } = props;
+  const isFocused = useIsFocused();
+
+  if (!isFocused) { return null; }
+
+  return (
+    <ScannerComponent
+      ref={onRef}
+      style={styles.scanner}
+      quality={0.5}
+      onPictureTaken={onDocumentCapture}
+      overlayColor='rgba(255,130,0, 0.7)'
+      enableTorch={useFlash === 'on'}
+      manualOnly={!autoCapture}
+      detectionCountBeforeCapture={5}
+      detectionRefreshRateInMS={200}
+    />
+  );
+}
 
 export default class Scanner extends React.PureComponent<Props, State> {
   state: State = {
@@ -42,6 +66,8 @@ export default class Scanner extends React.PureComponent<Props, State> {
 
     if (result === 'granted') { this.setState({ allowed: true }); }
   }
+
+  onRef = (r) => { this.pdfScannerElement = r; };
 
   capture = () => {
     this.pdfScannerElement.capture();
@@ -66,6 +92,7 @@ export default class Scanner extends React.PureComponent<Props, State> {
       return onFlashChange('on');
     }
 
+    // TODO: auto is not accepted by NativeModule
     // if (useFlash === 'auto') {
     //   return onFlashChange('on');
     // }
@@ -75,17 +102,47 @@ export default class Scanner extends React.PureComponent<Props, State> {
     this.props.goToScanEdit();
   }
 
-  renderTabs = () => {
+  renderScannerTab = ({ item: tab, index }) => {
+    const { activeTab } = this.props;
+    const isActiveTab = activeTab === index;
+    const {
+      tabText,
+      activeTabText,
+    } = styles;
 
+    const textStyle = isActiveTab ? activeTabText : tabText;
+    return (
+      <Ripple>
+        <View style={styles.tabView}>
+          <Text style={textStyle}>{tab.name}</Text>
+          {isActiveTab && <View style={styles.activeTabBorder}></View>}
+        </View>
+      </Ripple>
+    );
+  }
+
+  renderTabs = () => {
+    return (
+      <View style={styles.tabList}>
+        <FlatList
+          horizontal={true}
+          data={ScannerTabs}
+          renderItem={this.renderScannerTab}
+          keyExtractor={item => item.name}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tabListContainer}
+        />
+      </View>
+    );
   }
 
   renderActions = () => {
+    let uri = null;
     const {
       useFlash,
       autoCapture,
       confirmedDocuments,
     } = this.props;
-    let uri = null;
 
     if (confirmedDocuments) {
       uri = confirmedDocuments[0].originalUri;
@@ -147,21 +204,15 @@ export default class Scanner extends React.PureComponent<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <View style={styles.fullFlex}>
+        <View style={[styles.fullFlex, { backgroundColor: '#000' }]}>
           {
-            this.state.allowed && (
-              <ScannerComponent
-                ref={r => {this.pdfScannerElement = r; }}
-                style={styles.scanner}
-                quality={0.5}
-                onPictureTaken={this.props.onDocumentCapture}
-                overlayColor='rgba(255,130,0, 0.7)'
-                enableTorch={this.props.useFlash === 'on'}
-                manualOnly={!this.props.autoCapture}
-                detectionCountBeforeCapture={5}
-                detectionRefreshRateInMS={200}
-              />
-            )
+            this.state.allowed &&
+            <RenderScanner
+              onDocumentCapture={this.props.onDocumentCapture}
+              useFlash={this.props.useFlash}
+              autoCapture={this.props.autoCapture}
+              onRef={this.onRef}
+            />
           }
         </View>
         {this.renderTabs()}

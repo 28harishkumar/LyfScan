@@ -16,7 +16,7 @@ export type EditScanState = {
 
 export type EditScanActionProps =
   // Reset State
-  {
+  Partial<{
     type: typeof ACTION.RESET_EDIT_SCAN_STATE;
   }
   | {
@@ -83,4 +83,4 @@ export type EditScanActionProps =
   | {
     type: typeof ACTION.DELETE_PAGE;
     index: number;
-  };
+  }>;

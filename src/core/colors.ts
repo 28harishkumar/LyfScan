@@ -14,6 +14,7 @@ export default {
   primayText: '#333333',
   secondaryText: '#ffffff',
   primarySubText: '9b9b9b',
+  highlightText: '#07a79b',
 
   primaryIcon: '#646464',
   secondaryIcon: '#ffffff',
@@ -27,6 +28,7 @@ export default {
 
   primaryBorder: '#dddddd',
   secondaryBorder: '#ffffff',
+  highlightBorder: '#07a79b',
 
   danger: '#ff1744',
 };
