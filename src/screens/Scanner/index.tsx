@@ -95,7 +95,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     ][activeTab];
     const docStart = documentType[0].toUpperCase() + documentType.slice(1);
     const docNo = (new Date()).getTime().toString().slice(5);
-    const docName = docStart + ' ' + docNo + '.pdf';
+    const docName = docStart + ' ' + docNo;
 
     if (!confirmedDocuments) {
       // TODO: show tooltip
@@ -119,7 +119,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     return {
       name: docName,
-      create_time: new Date(),
+      create_time: new Date().getTime(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
       pdfUri: null,

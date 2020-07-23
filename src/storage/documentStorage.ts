@@ -23,7 +23,7 @@ async function storeDocument(pdfDocument: SavedDocumentProps) {
   try {
     const options = {
       imagePaths: pdfDocument.documents.map(d => d.finalUri.replace('file://', '')),
-      name: pdfDocument.name,
+      name: pdfDocument.name.replace(/\W/g, '') + '.pdf',
       quality: 1, // optional compression paramter
       maxSize: {
         maxWidth: 794,

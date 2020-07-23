@@ -49,7 +49,7 @@ export type SavedDocumentProps = {
   id?: string;
   folderId?: string;
   name: string;
-  create_time: Date;
+  create_time: number;
   thumbnailUri: string;
   documents: ScannedDocumentProps[];
   pdfUri: string;
