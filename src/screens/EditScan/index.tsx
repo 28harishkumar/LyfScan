@@ -8,11 +8,13 @@ import { SavedDocumentProps } from '@src/types/doc';
 import { Component } from './component';
 import { BackHandler } from 'react-native';
 import { EditScanState } from '@src/types/screens/editScan';
+import { refreshDocuments } from '@src/actions/documentList';
 
 type Props = EditScanState & {
+  dispatch: (e) => void;
+  navigation: any;
   pdfDocument: SavedDocumentProps;
   saveDocument: (pdfDocument: SavedDocumentProps) => void;
-  navigation: any;
 };
 
 class EditScan extends React.PureComponent<Props> {
@@ -28,9 +30,19 @@ class EditScan extends React.PureComponent<Props> {
    * on device back button press
    */
   handleBackButtonClick = () => {
-    // TODO: if modification active then alert else to documents
+    const {
+      dispatch,
+      navigation,
+      pdfDocument,
+      documentModified,
+    } = this.props;
 
-    this.props.navigation.reset({
+    if (documentModified) {
+      // TODO: if modification active then alert else to documents
+    }
+
+    dispatch(refreshDocuments(pdfDocument.folderId));
+    navigation.reset({
       index: 0,
       routes: [{ name: 'DocumentList' }],
     });

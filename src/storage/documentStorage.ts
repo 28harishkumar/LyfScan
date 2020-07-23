@@ -24,13 +24,17 @@ async function storeDocument(pdfDocument: SavedDocumentProps) {
     const options = {
       imagePaths: pdfDocument.documents.map(d => d.finalUri.replace('file://', '')),
       name: pdfDocument.name,
-      quality: 0.70, // optional compression paramter
+      quality: 1, // optional compression paramter
+      maxSize: {
+        maxWidth: 794,
+        maxHeight: 1123,
+      },
     };
 
     const pdf = await RNImageToPdf.createPDFbyImages(options);
     const folderId = pdfDocument.folderId;
     const folderDocuments = await getDocuments(folderId);
-    const oldDocument = folderDocuments.filter(d => d.id !== pdfDocument.id).pop();
+    const oldDocument = folderDocuments.filter(d => d.id === pdfDocument.id).pop();
 
     pdfDocument.pdfUri = pdf.filePath;
     pdfDocument.id = pdfDocument.id || new Date().getTime().toString();

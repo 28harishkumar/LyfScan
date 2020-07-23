@@ -3,6 +3,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  Image,
+  Dimensions,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import CustomCrop from 'react-native-perspective-image-cropper';
@@ -70,7 +72,7 @@ export default class Component extends React.PureComponent<Props> {
         <TextButton
           titleColor={colors.secondaryText}
           style={styles.tourBtn}
-          title='Take Tour' />
+          title='Take a Tour' />
       </View>
     );
   }
@@ -149,9 +151,8 @@ export default class Component extends React.PureComponent<Props> {
           <CustomCrop
             ref={ref => (this.customCrop = ref)}
             updateImage={onDocumentAccepted}
-            height={capturedDocument.height - 200}
+            height={capturedDocument.height}
             width={capturedDocument.width}
-
             initialImage={capturedDocument.originalUri}
             rectangleCoordinates={capturedDocument.croppedPosition}
           />

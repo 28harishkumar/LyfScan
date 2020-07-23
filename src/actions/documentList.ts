@@ -7,14 +7,20 @@ import {
 
 export const refreshDocuments = (tab: string) => {
   return async dispatch => {
-    const currentFolder: FolderProps = await FolderStorage.getFolder(tab);
-    const numberOfLoadedDocuments = currentFolder.documents.length;
+    try {
+      const currentFolder: FolderProps = await FolderStorage.getFolder(tab);
+      const numberOfLoadedDocuments = !!currentFolder ? currentFolder.documents.length : 0;
 
-    dispatch({
-      type: Constants.REFRESH_DOCUMENTS,
-      currentFolder,
-      numberOfLoadedDocuments,
-    });
+      dispatch({
+        type: Constants.REFRESH_DOCUMENTS,
+        currentFolder,
+        numberOfLoadedDocuments,
+      });
+    } catch (e) {
+      dispatch({
+        type: Constants.REFRESH_DOCUMENTS,
+      });
+    }
   };
 };
 

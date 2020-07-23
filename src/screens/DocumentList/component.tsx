@@ -278,16 +278,18 @@ class Component extends React.PureComponent<Props> {
     }
 
     return (
-      <FlatList
-        data={documents}
-        style={styles.documentList}
-        contentContainerStyle={styles.documentListConatainer}
-        renderItem={this.renderDocumentItem}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={this.renderFolders}
-        ListEmptyComponent={this.renderEmptyDocumentComponent}
-        numColumns={2}
-      />
+      <View style={styles.fullFlex}>
+        <FlatList
+          data={documents}
+          style={styles.documentList}
+          contentContainerStyle={styles.documentListConatainer}
+          renderItem={this.renderDocumentItem}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={this.renderFolders}
+          ListEmptyComponent={this.renderEmptyDocumentComponent}
+          numColumns={2}
+        />
+      </View>
     );
 
   }
@@ -312,7 +314,7 @@ class Component extends React.PureComponent<Props> {
           showPreferences,
         ]}
         activeIndex={0}
-       />
+      />
     );
   }
 

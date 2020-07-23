@@ -51,7 +51,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     this.props.dispatch(resetScannerState());
     this.props.navigation.reset({
       index: 0,
-      routes: [{ name: 'DocumentList' }],
+      routes: [{ name: screen }],
     });
   }
 
@@ -77,6 +77,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       position: 1,
       height: data.height,
       width: data.width,
+      effect: null,
     };
 
     this.props.onDocumentCapture(capturedDocument);
@@ -86,7 +87,15 @@ class ScannerContainer extends React.PureComponent<Props> {
    * Format images into SavedDocumentProps form
    */
   getPDFDocument = (): SavedDocumentProps => {
-    const { pdfDocument, confirmedDocuments } = this.props;
+    const { pdfDocument, confirmedDocuments, activeTab } = this.props;
+    const documentType = [
+      'ocr',
+      'card',
+      'document',
+    ][activeTab];
+    const docStart = documentType[0].toUpperCase() + documentType.slice(1);
+    const docNo = (new Date()).getTime().toString().slice(5);
+    const docName = docStart + ' ' + docNo + '.pdf';
 
     if (!confirmedDocuments) {
       // TODO: show tooltip
@@ -109,7 +118,7 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
 
     return {
-      name: Utilities.getDate(null, 'DD-MM-YYYY-Z') + '.pdf',
+      name: docName,
       create_time: new Date(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
@@ -117,7 +126,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       folderId: '2',
 
       // TODO: set correct document type
-      documentType: 'document',
+      documentType,
     };
   }
 
@@ -169,11 +178,14 @@ class ScannerContainer extends React.PureComponent<Props> {
    * @param finalUri string
    * @param croppedPosition Corodinates
    */
-  onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
+  onDocumentAccepted = (response: any, croppedPosition: RectCoordinates) => {
     const { capturedDocument } = this.props;
     const croppedDocument: ScannedDocumentProps = {
       ...capturedDocument,
-      finalUri,
+      croppedWidth: response.width,
+      croppedHeight: response.height,
+      croppedUri: response.imagePath,
+      finalUri: response.imagePath,
       croppedPosition,
     };
 

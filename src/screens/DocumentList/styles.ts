@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import colors from '@src/core/colors';
 
 export default StyleSheet.create({
+  fullFlex: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 8,

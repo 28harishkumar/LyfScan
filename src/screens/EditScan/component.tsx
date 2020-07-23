@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, Dimensions } from 'react-native';
 import { RaisedTextButton } from '@src/components/button';
 import styles from './styles';
 import { SavedDocumentProps } from '@src/types/doc';
@@ -14,16 +14,20 @@ class Component extends React.PureComponent<Props> {
   render() {
     const { pdfDocument } = this.props;
     const doc = pdfDocument.documents[0];
+    const { width  } = Dimensions.get('screen');
+    const height = doc.croppedHeight * (width - 40) / doc.croppedWidth;
 
     return (
       <View style={styles.container}>
         <Text>Edit document is in progress</Text>
         <View style={{padding: 10}}>
-          <Text>Original uri: {doc.originalUri}</Text>
-          <Text>Cropped uri: {doc.croppedUri}</Text>
-          <Text>Findal uri: {doc.finalUri}</Text>
+          <Text>{doc.finalUri}</Text>
           <Image
-            source={{ uri: doc.croppedUri, width: 200, height: 200 }} />
+            source={{
+              uri: doc.finalUri,
+              width: width - 40,
+              height,
+            }} />
         </View>
         <RaisedTextButton
           title='Save'

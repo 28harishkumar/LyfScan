@@ -53,7 +53,7 @@ function RenderScanner(props) {
       overlayColor='rgba(255,130,0, 0.7)'
       enableTorch={useFlash === 'on'}
       manualOnly={!autoCapture}
-      detectionCountBeforeCapture={5}
+      detectionCountBeforeCapture={10}
       detectionRefreshRateInMS={200}
     />
   );
