@@ -14,7 +14,7 @@
         "upgrade_scanner": "cp ../react-native-scanner/android/src/main/java/* node_modules/@28harishkumar/react-native-scanner/android/src/main/java -r && cp ../react-native-scanner/src/* node_modules/@28harishkumar/react-native-scanner/src -r"
     },
     "dependencies": {
-        "@28harishkumar/react-native-scanner": "https://github.com/28harishkumar/react-native-scanner",
+        "@28harishkumar/react-native-scanner": "https://github.com/28harishkumar/react-native-document-scanner",
         "@react-native-community/async-storage": "^1.11.0",
         "@react-native-community/masked-view": "^0.1.10",
         "@react-native-community/progress-bar-android": "^1.0.3",
@@ -36,7 +36,7 @@
         "react-native-modal": "^11.5.6",
         "react-native-pdf": "^6.2.0",
         "react-native-permissions": "^2.1.5",
-        "react-native-perspective-image-cropper": "https://github.com/28harishkumar/react-native-perspective-image-cropper",
+        "react-native-perspective-image-cropper": "https://github.com/28harishkumar/react-native-image-processor",
         "react-native-popup-menu": "^0.15.9",
         "react-native-reanimated": "^1.9.0",
         "react-native-safe-area-context": "^3.1.1",
