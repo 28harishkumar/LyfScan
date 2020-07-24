@@ -284,8 +284,10 @@ class Component extends React.PureComponent<Props> {
 
     const documents = currentFolder ? currentFolder.documents : null;
 
-    if (!documents || showSearch) {
-      return null;
+    if (showSearch) { return null; }
+
+    if (!documents) {
+      return <View style={styles.fullFlex}></View>;
     }
 
     if (documents.length % 2 === 1) {
@@ -302,18 +304,16 @@ class Component extends React.PureComponent<Props> {
     }
 
     return (
-      <View style={styles.fullFlex}>
-        <FlatList
-          data={documents}
-          style={styles.documentList}
-          contentContainerStyle={styles.documentListConatainer}
-          renderItem={this.renderDocumentItem}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={this.renderFolders}
-          ListEmptyComponent={this.renderEmptyDocumentComponent}
-          numColumns={2}
-        />
-      </View>
+      <FlatList
+        data={documents}
+        style={styles.documentList}
+        contentContainerStyle={styles.documentListConatainer}
+        renderItem={this.renderDocumentItem}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={this.renderFolders}
+        ListEmptyComponent={this.renderEmptyDocumentComponent}
+        numColumns={2}
+      />
     );
 
   }

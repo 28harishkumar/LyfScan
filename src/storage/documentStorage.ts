@@ -1,4 +1,4 @@
-import RNImageToPdf from 'react-native-image-to-pdf';
+import { ImageManupulator } from 'react-native-perspective-image-cropper';
 import { SavedDocumentProps } from '@src/types/doc';
 import AsyncStorage from '@react-native-community/async-storage';
 import { FolderProps } from '@src/types/screens/docoumentList';
@@ -24,19 +24,24 @@ async function storeDocument(pdfDocument: SavedDocumentProps) {
     const options = {
       imagePaths: pdfDocument.documents.map(d => d.finalUri.replace('file://', '')),
       name: pdfDocument.name.replace(/\W/g, '') + '.pdf',
-      quality: 1, // optional compression paramter
+      quality: 0.7, // optional compression paramter
       maxSize: {
-        maxWidth: 794,
-        maxHeight: 1123,
+        width: 794,
+        height: 1123,
       },
     };
 
-    const pdf = await RNImageToPdf.createPDFbyImages(options);
+    const [pdf, thumbnailUri] = await Promise.all([
+      ImageManupulator.createPDFbyImages(options),
+      ImageManupulator.storeThumbnail(pdfDocument.thumbnailUri, 150),
+    ]);
+
     const folderId = pdfDocument.folderId;
     const folderDocuments = await getDocuments(folderId);
     const oldDocument = folderDocuments.filter(d => d.id === pdfDocument.id).pop();
 
     pdfDocument.pdfUri = pdf.filePath;
+    pdfDocument.thumbnailUri = 'file://' + thumbnailUri;
     pdfDocument.id = pdfDocument.id || new Date().getTime().toString();
 
     // TODO: encrypt document

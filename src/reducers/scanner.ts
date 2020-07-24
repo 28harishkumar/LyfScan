@@ -28,7 +28,6 @@ export default function reducer(state = initialState, action: ScannerActionProps
       return {
         ...state,
         activeTab: 2,
-        useFlash: 'off',
         popupConfirmed: false,
         pdfDocument: null,
         capturedDocument: null,

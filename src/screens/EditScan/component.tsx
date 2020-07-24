@@ -21,7 +21,6 @@ class Component extends React.PureComponent<Props> {
       <View style={styles.container}>
         <Text>Edit document is in progress</Text>
         <View style={{padding: 10}}>
-          <Text>{doc.finalUri}</Text>
           <Image
             source={{
               uri: doc.finalUri,
