@@ -19,8 +19,10 @@ import {
 import Pdf from 'react-native-pdf';
 import { FolderProps } from '@src/types/screens/docoumentList';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import { SavedDocumentProps } from '@src/types/doc';
 import colors from '@src/core/colors';
+import * as Utils from '@src/core/Utilities';
 import Ripple from '@src/components/ripple';
 import BottomNavigation from '@src/components/BottomNavigation';
 import styles from './styles';
@@ -205,6 +207,52 @@ class Component extends React.PureComponent<Props> {
     </View>
   )
 
+  renderDocFooter = (documentItem: SavedDocumentProps) => (
+    <Menu renderer={renderers.SlideInMenu}>
+      <MenuTrigger>
+        <View style={styles.docFooter}>
+          <View style={styles.docInfo}>
+            <Text
+              numberOfLines={1}
+              style={styles.docName}>
+              {documentItem.name}
+            </Text>
+            <Text
+              style={styles.docDate}>
+              {Utils.getDate(documentItem.create_time)}
+            </Text>
+          </View>
+          <Entypo
+            size={20}
+            style={styles.docIcon}
+            name='dots-three-vertical'
+            color={colors.primaryIcon}
+          />
+        </View>
+      </MenuTrigger>
+      <MenuOptions>
+        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+          <Text style={{ padding: 8 }}>Move to folder</Text>
+        </MenuOption>
+        <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
+          <Text style={{ padding: 8 }}>Modify Scan</Text>
+        </MenuOption>
+        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+          <Text style={{ padding: 8 }}>Share</Text>
+        </MenuOption>
+        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+          <Text style={{ padding: 8 }}>LyfScan Share</Text>
+        </MenuOption>
+        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+          <Text style={{ padding: 8 }}>Rename</Text>
+        </MenuOption>
+        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+          <Text style={{ padding: 8 }}>Delete</Text>
+        </MenuOption>
+      </MenuOptions>
+    </Menu>
+  )
+
   renderDocumentItem = ({ item: documentItem, index: position }: { item: SavedDocumentProps, index: number }) => {
     const { setViewDocument } = this.props;
     const docContainer = position % 2 === 1 ? styles.docContainerRight : styles.docContainerLeft;
@@ -223,31 +271,7 @@ class Component extends React.PureComponent<Props> {
             resizeMode='cover'
             source={{ uri: documentItem.thumbnailUri }} />
         </TouchableOpacity>
-        <View style={{ padding: 5 }}>
-          <Menu renderer={renderers.SlideInMenu}>
-            <MenuTrigger text={documentItem.name} />
-            <MenuOptions>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
-                <Text style={{ padding: 8 }}>Move to folder</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
-                <Text style={{ padding: 8 }}>Modify Scan</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
-                <Text style={{ padding: 8 }}>Share</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
-                <Text style={{ padding: 8 }}>LyfScan Share</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
-                <Text style={{ padding: 8 }}>Rename</Text>
-              </MenuOption>
-              <MenuOption onSelect={() => Alert.alert(`Delete`)} >
-                <Text style={{ padding: 8 }}>Delete</Text>
-              </MenuOption>
-            </MenuOptions>
-          </Menu>
-        </View>
+        {this.renderDocFooter(documentItem)}
       </View>
     );
   };
@@ -260,8 +284,10 @@ class Component extends React.PureComponent<Props> {
 
     const documents = currentFolder ? currentFolder.documents : null;
 
-    if (!documents || showSearch) {
-      return null;
+    if (showSearch) { return null; }
+
+    if (!documents) {
+      return <View style={styles.fullFlex}></View>;
     }
 
     if (documents.length % 2 === 1) {
@@ -269,7 +295,7 @@ class Component extends React.PureComponent<Props> {
       documents.push({
         id: '-1',
         name: '',
-        create_time: new Date(),
+        create_time: new Date().getTime(),
         thumbnailUri: null,
         documents: null,
         documentType: null,
@@ -312,7 +338,7 @@ class Component extends React.PureComponent<Props> {
           showPreferences,
         ]}
         activeIndex={0}
-       />
+      />
     );
   }
 

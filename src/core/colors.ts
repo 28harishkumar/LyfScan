@@ -7,13 +7,14 @@ export default {
   primaryDark: '#07a79b',
 
   primaryBg: '#ffffff',
-  secondaryBg: '#ececec',
+  secondaryBg: '#dddddd',
   layoverBackground: '#5e5e5e',
+  lightBackground: '#eeeeee',
   intenseBackground: '#000000',
 
-  primayText: '#333333',
+  primayText: '#222222',
   secondaryText: '#ffffff',
-  primarySubText: '9b9b9b',
+  primarySubText: '#9b9b9b',
   highlightText: '#07a79b',
 
   primaryIcon: '#646464',
@@ -26,7 +27,7 @@ export default {
   colored3IconBg: '#8e8e8e',
   colored4IconBg: '#232f5c',
 
-  primaryBorder: '#dddddd',
+  primaryBorder: '#cbcbcb',
   secondaryBorder: '#ffffff',
   highlightBorder: '#07a79b',
 

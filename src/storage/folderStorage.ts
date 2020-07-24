@@ -48,9 +48,12 @@ export async function IntiDirectory() {
   }
 }
 
-async function getFolder (folderId: string) {
-  // TODO:
-  return (await GetAllContent()).filter(f => f.folderId === folderId).pop();
+async function getFolder(folderId: string) {
+  try {
+    return (await GetAllContent()).filter(f => f.folderId === folderId).pop();
+  } catch (e) {
+    return null;
+  }
 }
 
 const FolderStorage = {

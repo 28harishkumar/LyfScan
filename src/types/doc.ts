@@ -33,16 +33,23 @@ export type ScannedDocumentProps = {
   // position of image in multiple document list
   position: number;
 
-  // size
+  // TODO: ENUM
+  effect: string;
+
+  // original size
   height: number;
   width: number;
+
+  // cropped size
+  croppedHeight?: number;
+  croppedWidth?: number;
 };
 
 export type SavedDocumentProps = {
   id?: string;
   folderId?: string;
   name: string;
-  create_time: Date;
+  create_time: number;
   thumbnailUri: string;
   documents: ScannedDocumentProps[];
   pdfUri: string;

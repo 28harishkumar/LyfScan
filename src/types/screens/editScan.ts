@@ -8,8 +8,8 @@ export type EditScanState = {
   documentModified: boolean;
   confirmModificationRejection: boolean;
   showPageReorder: boolean;
-  showColourOptions: boolean;
-  applyColourToAll: boolean;
+  showColorOptions: boolean;
+  applyColorToAll: boolean;
   showDeletePageWarning: boolean;
   showRecropOnImage: boolean;
 };

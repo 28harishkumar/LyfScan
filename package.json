@@ -11,7 +11,7 @@
         "lint": "tslint -p ./tsconfig.json",
         "lint:fix": "npm run lint -- --fix",
         "upgrade_cropping": "cp ../react-native-perspective-image-cropper/android/src/* node_modules/react-native-perspective-image-cropper/android/src -r && cp ../react-native-perspective-image-cropper/index.js node_modules/react-native-perspective-image-cropper/index.js",
-        "upgrade_scanner": "cp ../react-native-scanner/android/src/* node_modules/@28harishkumar/react-native-scanner/android/src -r && cp ../react-native-scanner/src/* node_modules/@28harishkumar/react-native-scanner/src -r"
+        "upgrade_scanner": "cp ../react-native-scanner/android/src/main/java/* node_modules/@28harishkumar/react-native-scanner/android/src/main/java -r && cp ../react-native-scanner/src/* node_modules/@28harishkumar/react-native-scanner/src -r"
     },
     "dependencies": {
         "@28harishkumar/react-native-scanner": "https://github.com/28harishkumar/react-native-scanner",

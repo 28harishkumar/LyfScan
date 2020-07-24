@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Alert, BackHandler } from 'react-native';
-import { FlashProps } from '@src/types/screens/scanner';
+import { FlashProps, ScannerState } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps, RectCoordinates } from '@src/types/doc';
 import * as Utilities from '@src/core/Utilities';
 import {
@@ -21,10 +21,21 @@ import {
 } from '@src/actions/scanner';
 import Component from './component';
 import { refreshDocuments } from '@src/actions/documentList';
-import { ScannerManager } from '@28harishkumar/react-native-scanner';
 
-// TODO: add Props type
-type Props = any;
+type Props = ScannerState & {
+  dispatch: (e) => void;
+  navigation: any;
+  onTabChange: (activeTab: number) => void;
+  onPopupConfirmed: () => void;
+  onOCRLanguageRequest: () => void;
+  onOCRLanguageChange: (language: string) => void;
+  onFlashChange: (useFlash: FlashProps) => void;
+  onAutoCaptureChange: (autoCapture: boolean) => void;
+  onDocumentCapture: (capturedDocument: ScannedDocumentProps) => void;
+  onDocumentAccepted: (capturedDocument: ScannedDocumentProps) => void;
+  onDocumentRejected: () => void;
+  showScanNotSavedWarning: (askScanRejection: boolean) => void;
+};
 
 class ScannerContainer extends React.PureComponent<Props> {
   componentDidMount() {
@@ -33,6 +44,15 @@ class ScannerContainer extends React.PureComponent<Props> {
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  prepareSafeLeave = (screen: string) => {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+    this.props.dispatch(resetScannerState());
+    this.props.navigation.reset({
+      index: 0,
+      routes: [{ name: screen }],
+    });
   }
 
   /**
@@ -57,6 +77,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       position: 1,
       height: data.height,
       width: data.width,
+      effect: null,
     };
 
     this.props.onDocumentCapture(capturedDocument);
@@ -66,7 +87,15 @@ class ScannerContainer extends React.PureComponent<Props> {
    * Format images into SavedDocumentProps form
    */
   getPDFDocument = (): SavedDocumentProps => {
-    const { pdfDocument, confirmedDocuments } = this.props;
+    const { pdfDocument, confirmedDocuments, activeTab } = this.props;
+    const documentType = [
+      'ocr',
+      'card',
+      'document',
+    ][activeTab];
+    const docStart = documentType[0].toUpperCase() + documentType.slice(1);
+    const docNo = (new Date()).getTime().toString().slice(5);
+    const docName = docStart + ' ' + docNo;
 
     if (!confirmedDocuments) {
       // TODO: show tooltip
@@ -89,15 +118,15 @@ class ScannerContainer extends React.PureComponent<Props> {
     }
 
     return {
-      name: Utilities.getDate(null, 'DD-MM-YYYY-Z') + '.pdf',
-      create_time: new Date(),
+      name: docName,
+      create_time: new Date().getTime(),
       thumbnailUri: thumb,
       documents: confirmedDocuments,
       pdfUri: null,
       folderId: '2',
 
       // TODO: set correct document type
-      documentType: 'document',
+      documentType,
     };
   }
 
@@ -109,8 +138,7 @@ class ScannerContainer extends React.PureComponent<Props> {
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
-      this.props.dispatch(resetScannerState());
-      this.props.navigation.navigate('EditScan');
+      this.prepareSafeLeave('EditScan');
     }
   };
 
@@ -121,9 +149,8 @@ class ScannerContainer extends React.PureComponent<Props> {
     const { capturedDocument, confirmedDocuments } = this.props;
 
     if (!capturedDocument && !confirmedDocuments) {
-      this.props.dispatch(resetScannerState());
       this.props.dispatch(refreshDocuments('2'));
-      this.props.navigation.navigate('DocumentList');
+      this.prepareSafeLeave('DocumentList');
     } else {
       this.props.showScanNotSavedWarning(true);
     }
@@ -133,9 +160,8 @@ class ScannerContainer extends React.PureComponent<Props> {
    * Discard current Scans and Navigate to document screen
    */
   forceGoToDocuments = () => {
-    this.props.dispatch(resetScannerState());
+    this.prepareSafeLeave('DocumentList');
     this.props.dispatch(refreshDocuments('2'));
-    this.props.navigation.navigate('DocumentList');
   }
 
   /**
@@ -152,11 +178,14 @@ class ScannerContainer extends React.PureComponent<Props> {
    * @param finalUri string
    * @param croppedPosition Corodinates
    */
-  onDocumentAccepted = (image: string, finalUri: string, croppedPosition: RectCoordinates) => {
+  onDocumentAccepted = (response: any, croppedPosition: RectCoordinates) => {
     const { capturedDocument } = this.props;
     const croppedDocument: ScannedDocumentProps = {
       ...capturedDocument,
-      finalUri,
+      croppedWidth: response.width,
+      croppedHeight: response.height,
+      croppedUri: response.imagePath,
+      finalUri: response.imagePath,
       croppedPosition,
     };
 
@@ -176,11 +205,11 @@ class ScannerContainer extends React.PureComponent<Props> {
       popupConfirmed={this.props.popupConfirmed}
       capturedDocument={this.props.capturedDocument}
       confirmedDocuments={this.props.confirmedDocuments}
-      showDocumentPreview={this.props.showDocumentPreview}
+      showDocumentPreview={!!this.props.capturedDocument}
       useFlash={this.props.useFlash}
       autoCapture={this.props.autoCapture}
       askScanRejection={this.props.askScanRejection}
-      orcLanguage={this.props.orcLanguage}
+      ocrLanguage={this.props.ocrLanguage}
       showOCRLanguageList={this.props.showOCRLanguageList}
       onTabChange={this.props.onTabChange}
       onPopupConfirmed={this.props.onPopupConfirmed}

@@ -37,10 +37,7 @@ export type DocumentListActionProps =
     tabIndex: number,
   }
   | {
-    type: typeof ACTION.SHOW_DOCUMENT_SEARCH;
-  }
-  | {
-    type: typeof ACTION.HIDE_DOCUMENT_SEARCH;
+    type: typeof ACTION.SET_DOCUMENT_SEARCH;
   }
   | {
     type: typeof ACTION.SEARCH_TEXT_CHANGE;

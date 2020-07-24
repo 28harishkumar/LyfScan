@@ -37,7 +37,7 @@ export type ScannerState = {
   askScanRejection: boolean;
 
   // selected language for OCR
-  orcLanguage: string;
+  ocrLanguage: string;
 
   // show available languages for OCR
   showOCRLanguageList: boolean;

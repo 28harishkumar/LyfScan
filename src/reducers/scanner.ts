@@ -16,7 +16,7 @@ const initialState: ScannerState = {
   autoCapture: true,
 
   askScanRejection: false,
-  orcLanguage: 'en',
+  ocrLanguage: 'en',
   showOCRLanguageList: false,
 };
 
@@ -28,10 +28,10 @@ export default function reducer(state = initialState, action: ScannerActionProps
       return {
         ...state,
         activeTab: 2,
-        useFlash: 'off',
         popupConfirmed: false,
         pdfDocument: null,
         capturedDocument: null,
+        confirmedDocuments: null,
         showDocumentPreview: false,
         askScanRejection: false,
         showOCRLanguageList: false,

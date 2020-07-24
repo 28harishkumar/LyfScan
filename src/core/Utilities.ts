@@ -8,9 +8,13 @@ export function appendZero(str: string | number): string {
   return str.toString();
 }
 
-export function getDate(date: Date, _format: string): string {
+export function getDate(date: Date | string | number, _format?: string): string {
   date = date || new Date();
   _format = _format || 'DD/MM/YYYY';
+
+  if (typeof date === 'string' || typeof date === 'number') {
+    date = new Date(date);
+  }
 
   const dateOnly = appendZero(date.getDate());
   const month = appendZero(date.getMonth() + 1);

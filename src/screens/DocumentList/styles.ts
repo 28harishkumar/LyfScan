@@ -1,7 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '@src/core/colors';
 
 export default StyleSheet.create({
+  fullFlex: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 8,
@@ -61,6 +64,7 @@ export default StyleSheet.create({
   },
   documentList: {
     flex: 1,
+    backgroundColor: colors.secondaryBg,
   },
   documentListConatainer: {
     paddingBottom: 100,
@@ -73,10 +77,10 @@ export default StyleSheet.create({
     flex: 1,
     margin: 8,
     marginBottom: 0,
-    backgroundColor: '#ffffff',
-    borderWidth: 1,
-    borderColor: '#dddddd',
-    height: 200,
+    borderWidth: 2,
+    borderColor: colors.primaryBorder,
+    backgroundColor: colors.primaryBg,
+    height: 184,
   },
   docContainerLeft: {
     marginRight: 4,
@@ -85,8 +89,30 @@ export default StyleSheet.create({
     marginLeft: 4,
   },
   documentThumb: {
-    height: 150,
+    height: 120,
     width: '100%',
+  },
+  docFooter: {
+    height: 60,
+    backgroundColor: colors.lightBackground,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  docInfo: {
+    maxWidth: Dimensions.get('screen').width / 2 - 40,
+    padding: 8,
+  },
+  docName: {
+    fontSize: 14,
+    color: colors.primayText,
+    marginBottom: 5,
+  },
+  docDate: {
+    color: colors.primarySubText,
+    fontSize: 12,
+  },
+  docIcon: {
+    padding: 8,
   },
   pdfModal: {
     flex: 1,

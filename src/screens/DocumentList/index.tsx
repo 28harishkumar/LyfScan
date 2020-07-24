@@ -43,7 +43,7 @@ class DocumentList extends React.PureComponent<Props> {
   }
 
   openCamera = () => {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('Scanner');
   }
 
   showPreferences = () => {
