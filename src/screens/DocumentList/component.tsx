@@ -231,22 +231,22 @@ class Component extends React.PureComponent<Props> {
         </View>
       </MenuTrigger>
       <MenuOptions>
-        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+        <MenuOption onSelect={() => Alert.alert('Move to folder', 'Work in Progress')} >
           <Text style={{ padding: 8 }}>Move to folder</Text>
         </MenuOption>
         <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
           <Text style={{ padding: 8 }}>Modify Scan</Text>
         </MenuOption>
-        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+        <MenuOption onSelect={() => Alert.alert('Share', 'Work in Progress')} >
           <Text style={{ padding: 8 }}>Share</Text>
         </MenuOption>
-        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+        <MenuOption onSelect={() => Alert.alert('LyfScan Share', 'Work in Progress')} >
           <Text style={{ padding: 8 }}>LyfScan Share</Text>
         </MenuOption>
-        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+        <MenuOption onSelect={() => Alert.alert('Rename', 'Work in Progress')} >
           <Text style={{ padding: 8 }}>Rename</Text>
         </MenuOption>
-        <MenuOption onSelect={() => Alert.alert(`Delete`)} >
+        <MenuOption onSelect={() => Alert.alert('Delete', 'Work in Progress')} >
           <Text style={{ padding: 8 }}>Delete</Text>
         </MenuOption>
       </MenuOptions>

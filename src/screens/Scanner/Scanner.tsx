@@ -50,6 +50,7 @@ function RenderScanner(props) {
       style={styles.scanner}
       quality={0.5}
       onPictureTaken={onDocumentCapture}
+      saveOnDevice={true}
       overlayColor='rgba(255,130,0, 0.7)'
       enableTorch={useFlash === 'on'}
       manualOnly={!autoCapture}

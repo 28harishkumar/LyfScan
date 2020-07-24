@@ -99,7 +99,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   docInfo: {
-    maxWidth: Dimensions.get('screen').width / 2 - 40,
+    maxWidth: Dimensions.get('screen').width / 2 - 50,
     padding: 8,
   },
   docName: {

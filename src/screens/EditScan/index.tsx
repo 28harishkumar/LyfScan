@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  saveDocument,
-} from '@src/actions/editScan';
+import * as EditScanActions from '@src/actions/editScan';
 import { SavedDocumentProps } from '@src/types/doc';
 
 import { Component } from './component';
@@ -11,9 +9,10 @@ import { EditScanState } from '@src/types/screens/editScan';
 import { refreshDocuments } from '@src/actions/documentList';
 
 type Props = EditScanState & {
-  dispatch: (e) => void;
   navigation: any;
+  dispatch: (e) => void;
   pdfDocument: SavedDocumentProps;
+  setActivePage: (index: number) => void;
   saveDocument: (pdfDocument: SavedDocumentProps) => void;
 };
 
@@ -68,8 +67,12 @@ class EditScan extends React.PureComponent<Props> {
   render() {
     return (
       <Component
+        activePage={this.props.activePage}
+        showNameChangeForm={this.props.showNameChangeForm}
         pdfDocument={this.props.pdfDocument}
         onSave={this.onSave}
+        setActivePage={this.props.setActivePage}
+        onCancel={this.handleBackButtonClick}
       />
     );
   }
@@ -78,7 +81,8 @@ class EditScan extends React.PureComponent<Props> {
 const mapStateToProps = state => state.editScan;
 
 const mapDispatchToProps = dispatch => ({
-  saveDocument: (pdfDocument: SavedDocumentProps) => dispatch(saveDocument(pdfDocument)),
+  saveDocument: (pdfDocument: SavedDocumentProps) => dispatch(EditScanActions.saveDocument(pdfDocument)),
+  setActivePage: (index: number) => dispatch(EditScanActions.onSwap(index)),
   dispatch,
 });
 
