@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MenuProvider } from 'react-native-popup-menu';
@@ -29,6 +30,7 @@ const Stack = createStackNavigator();
 
 export class App extends Component {
   componentDidMount() {
+    SplashScreen.hide();
     IntiDirectory();
   }
 
