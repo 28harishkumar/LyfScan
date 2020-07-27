@@ -1,4 +1,4 @@
-import { ImageManupulator } from 'react-native-perspective-image-cropper';
+import { ImageManupulator } from 'react-native-image-processor';
 import { SavedDocumentProps } from '@src/types/doc';
 import AsyncStorage from '@react-native-community/async-storage';
 import { FolderProps } from '@src/types/screens/docoumentList';

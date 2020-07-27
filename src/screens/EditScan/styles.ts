@@ -59,14 +59,13 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   firstPage: {
-    marginLeft: dimensions.width * 0.2,
+    marginLeft: dimensions.width * 0.15,
   },
   lastPage: {
-    marginRight: dimensions.width * 0.2,
+    marginRight: dimensions.width * 0.15,
   },
   page: {
-    marginHorizontal: 20,
-    width: dimensions.width * 0.5,
+    width: dimensions.width * 0.7,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
@@ -76,7 +75,8 @@ export default StyleSheet.create({
     elevation: 3,
   },
   pageImage: {
-
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   paggingWrap: {
     bottom: 80,

@@ -38,14 +38,15 @@ function RenderScanner(props) {
   return (
     <ScannerComponent
       ref={onRef}
+      key={autoCapture.toString()}
       style={styles.scanner}
-      quality={0.5}
+      quality={1}
       onPictureTaken={onDocumentCapture}
-      saveOnDevice={true}
       overlayColor='rgba(255,130,0, 0.7)'
       enableTorch={useFlash === 'on'}
       manualOnly={!autoCapture}
-      detectionCountBeforeCapture={10}
+      saveOnDevice={true}
+      detectionCountBeforeCapture={15}
       detectionRefreshRateInMS={200}
     />
   );

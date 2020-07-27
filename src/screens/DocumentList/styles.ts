@@ -116,5 +116,42 @@ export default StyleSheet.create({
   },
   pdfModal: {
     flex: 1,
+    paddingVertical: 8,
+  },
+  actionContainer: {
+    height: 60,
+    flexDirection: 'row',
+    backgroundColor: colors.primaryBg,
+    shadowColor: colors.intenseBackground,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
+  },
+  actionWrap: {
+    flex: 1,
+    padding: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionText: {
+    paddingTop: 4,
+    fontSize: 11,
+    color: colors.primayText,
+  },
+  iconRow: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    paddingBottom: 8,
+  },
+  menuIcon: {
+    marginHorizontal: 16,
+  },
+  menuText: {
+    paddingTop: 4,
   },
 });

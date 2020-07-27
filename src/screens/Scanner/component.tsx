@@ -8,7 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import CustomCrop from 'react-native-perspective-image-cropper';
+import CustomCrop from 'react-native-image-processor';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { TextButton, RaisedTextButton } from '@src/components/button';
 import colors from '@src/core/colors';
@@ -290,8 +290,10 @@ export default class Component extends React.PureComponent<Props, State> {
           onScannerRef={this.onScannerRef}
           onDocumentCapture={onDocumentCapture}
         />
-        {this.renderTabs()}
-        {this.renderActions()}
+        <View style={{alignSelf: 'flex-end'}}>
+          {this.renderTabs()}
+          {this.renderActions()}
+        </View>
       </React.Fragment>
     );
   }
@@ -311,6 +313,8 @@ export default class Component extends React.PureComponent<Props, State> {
             updateImage={onDocumentAccepted}
             height={capturedDocument.height}
             width={capturedDocument.width}
+            overlayColor='transparent'
+            maxWidth={794}
             initialImage={capturedDocument.originalUri}
             rectangleCoordinates={capturedDocument.croppedPosition}
           />

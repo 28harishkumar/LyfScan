@@ -232,22 +232,70 @@ class Component extends React.PureComponent<Props> {
       </MenuTrigger>
       <MenuOptions>
         <MenuOption onSelect={() => Alert.alert('Move to folder', 'Work in Progress')} >
-          <Text style={{ padding: 8 }}>Move to folder</Text>
+          <View style={[styles.iconRow, { paddingTop: 8 }]}>
+            <MaterialIcons
+              name='folder'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>Move to folder</Text>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => this.props.modifyDocument(documentItem)} >
-          <Text style={{ padding: 8 }}>Modify Scan</Text>
+          <View style={styles.iconRow}>
+            <MaterialIcons
+              name='crop'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>Modify Scan</Text>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => Alert.alert('Share', 'Work in Progress')} >
-          <Text style={{ padding: 8 }}>Share</Text>
+          <View style={styles.iconRow}>
+            <MaterialIcons
+              name='share'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>Share</Text>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => Alert.alert('LyfScan Share', 'Work in Progress')} >
-          <Text style={{ padding: 8 }}>LyfScan Share</Text>
+          <View style={styles.iconRow}>
+            <MaterialIcons
+              name='wifi-tethering'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>LyfScan Share</Text>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => Alert.alert('Rename', 'Work in Progress')} >
-          <Text style={{ padding: 8 }}>Rename</Text>
+          <View style={styles.iconRow}>
+            <MaterialIcons
+              name='edit'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>Rename</Text>
+          </View>
         </MenuOption>
         <MenuOption onSelect={() => Alert.alert('Delete', 'Work in Progress')} >
-          <Text style={{ padding: 8 }}>Delete</Text>
+          <View style={styles.iconRow}>
+            <MaterialIcons
+              name='delete'
+              size={25}
+              style={styles.menuIcon}
+              color={colors.primaryIcon}
+            />
+            <Text style={styles.menuText}>Delete</Text>
+          </View>
         </MenuOption>
       </MenuOptions>
     </Menu>
@@ -353,10 +401,76 @@ class Component extends React.PureComponent<Props> {
         onRequestClose={() => this.props.setViewDocument(null)}
         onDismiss={() => this.props.setViewDocument(null)}
         visible={true}>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Ripple
+              delayPressOut={150}
+              onPressOut={() => this.props.setViewDocument(null)}>
+              <MaterialIcons
+                name='arrow-back'
+                size={25}
+                style={styles.headerIcon}
+                color={colors.secondaryIcon}
+              />
+            </Ripple>
+            <Text style={styles.logoText}>{viewDocument.name}</Text>
+          </View>
+          <View style={styles.headerContent}>
+            <Ripple onPress={this.props.createFolder}>
+              <MaterialIcons
+                name='edit'
+                size={25}
+                style={styles.headerIcon}
+                color={colors.secondaryIcon}
+              />
+            </Ripple>
+            <Ripple onPress={this.props.openSearch}>
+              <MaterialIcons
+                name='search'
+                size={25}
+                style={styles.headerIcon}
+                color={colors.secondaryIcon}
+              />
+            </Ripple>
+          </View>
+        </View>
         <Pdf
           source={{ uri: viewDocument.pdfUri, cache: false }}
           style={styles.pdfModal}
         />
+        <View style={styles.actionContainer}>
+          <Ripple style={styles.actionWrap}>
+            <MaterialIcons
+              name='share'
+              color={colors.primaryIcon}
+              size={20} />
+            <Text style={styles.actionText}>Share</Text>
+          </Ripple>
+
+          <Ripple style={styles.actionWrap}>
+            <MaterialIcons
+              name='crop'
+              color={colors.primaryIcon}
+              size={20} />
+            <Text style={styles.actionText}>Modify</Text>
+          </Ripple>
+
+          <Ripple style={styles.actionWrap}>
+            <MaterialIcons
+              name='text-format'
+              color={colors.primaryIcon}
+              size={20} />
+            <Text style={styles.actionText}>OCR</Text>
+          </Ripple>
+
+          <Ripple style={styles.actionWrap}>
+            <MaterialIcons
+              name='delete'
+              color={colors.primaryIcon}
+              size={20} />
+            <Text style={styles.actionText}>Delete</Text>
+          </Ripple>
+        </View>
       </Modal>
     );
   }
