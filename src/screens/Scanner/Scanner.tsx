@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
-import ScannerComponent from '@28harishkumar/react-native-scanner';
+import ScannerComponent, { PictureTaken } from '@28harishkumar/react-native-scanner';
 import { useIsFocused } from '@react-navigation/native';
 import { ScannedDocumentProps } from '@src/types/doc';
 import styles from './styles';
@@ -22,7 +22,7 @@ type Props = {
   autoCapture: boolean;
   activeTab: number;
   onScannerRef: (r) => void;
-  onDocumentCapture: (data: any) => void;
+  onDocumentCapture: (data: PictureTaken) => void;
 };
 
 type State = {

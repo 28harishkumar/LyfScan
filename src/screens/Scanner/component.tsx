@@ -18,6 +18,9 @@ import Scanner from './Scanner';
 import styles from './styles';
 import Ripple from '@src/components/ripple';
 import { ScannerTabs } from '@src/core/constants';
+import { PictureTaken } from '@28harishkumar/react-native-scanner';
+import { ImageProps } from '@src/components/DocumentPicker/ImageItem';
+import DocumentPicker from '@src/components/DocumentPicker';
 
 type Props = {
   activeTab: number;
@@ -31,7 +34,8 @@ type Props = {
   ocrLanguage: string;
   showOCRLanguageList: boolean;
 
-  onDocumentCapture: (data) => void;
+  pickFromGallery: (images: ImageProps[]) => void;
+  onDocumentCapture: (data: PictureTaken) => void;
   onDocumentRejected: () => void;
   onDocumentAccepted: (image, url, coordinates) => void;
   rejectGoToDocuments: () => void;
@@ -47,7 +51,11 @@ type Props = {
   onOCRLanguageChange: (language: string) => void;
 };
 
-export default class Component extends React.PureComponent<Props> {
+type State = {
+  pickFromDevice: boolean;
+};
+
+export default class Component extends React.PureComponent<Props, State> {
   /**
    * TODO: add following tabs:
    * Image to Text
@@ -61,6 +69,10 @@ export default class Component extends React.PureComponent<Props> {
   customCrop = null;
   pdfScannerElement = null;
 
+  state: State = {
+    pickFromDevice: false,
+  };
+
   onScannerRef = (r) => { this.pdfScannerElement = r; };
 
   capture = () => {
@@ -68,7 +80,15 @@ export default class Component extends React.PureComponent<Props> {
   }
 
   openGallery = () => {
-    // TODO:
+    this.setState({ pickFromDevice: true });
+  }
+
+  closeGallery = () => {
+    this.setState({ pickFromDevice: false });
+  }
+
+  pickFromGallery = (images: ImageProps[]) => {
+    this.props.pickFromGallery(images);
   }
 
   toggleAutoCapture = () => {
@@ -318,6 +338,17 @@ export default class Component extends React.PureComponent<Props> {
 
   render() {
     const { capturedDocument } = this.props;
+    const { pickFromDevice } = this.state;
+
+    if (pickFromDevice) {
+      return (
+        <DocumentPicker
+          maximum={4}
+          onClose={this.closeGallery}
+          onDocumentPickup={this.pickFromGallery}
+         />
+      );
+    }
 
     if (capturedDocument) {
       return this.renderCroppingView();

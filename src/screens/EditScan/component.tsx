@@ -145,8 +145,9 @@ class Component extends React.PureComponent<Props> {
 
     const ratio = doc.croppedHeight / doc.croppedWidth;
     const maxWidth = dimensions.width * 0.6;
+    const maxHeight = dimensions.height - 200;
     const width = doc.croppedWidth > maxWidth ? maxWidth : doc.croppedWidth;
-    const height = width * ratio;
+    const height = width * ratio > maxHeight ? maxHeight : width * ratio;
     const imageWidth = isActivePage ? width : width * 0.9;
     const imageHeight = isActivePage ? height : height * 0.9;
 
@@ -169,7 +170,7 @@ class Component extends React.PureComponent<Props> {
         <ImageZoom
           useNativeDriver={true}
           cropWidth={imageWidth + 250}
-          cropHeight={imageHeight + 250}
+          cropHeight={maxHeight + 150}
           imageWidth={imageWidth}
           imageHeight={imageHeight}
           pinchToZoom={true}

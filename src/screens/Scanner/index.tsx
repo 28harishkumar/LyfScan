@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { Alert, BackHandler } from 'react-native';
+import { Alert, BackHandler, Image } from 'react-native';
 import { FlashProps, ScannerState } from '@src/types/screens/scanner';
 import { ScannedDocumentProps, SavedDocumentProps, RectCoordinates } from '@src/types/doc';
-import * as Utilities from '@src/core/Utilities';
 import {
   onTabChange,
   onPopupConfirmed,
@@ -21,6 +20,7 @@ import {
 } from '@src/actions/scanner';
 import Component from './component';
 import { refreshDocuments } from '@src/actions/documentList';
+import { ImageProps } from '@src/components/DocumentPicker/ImageItem';
 
 type Props = ScannerState & {
   dispatch: (e) => void;
@@ -49,6 +49,7 @@ class ScannerContainer extends React.PureComponent<Props> {
   prepareSafeLeave = (screen: string) => {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
     this.props.dispatch(resetScannerState());
+
     this.props.navigation.reset({
       index: 0,
       routes: [{ name: screen }],
@@ -86,8 +87,8 @@ class ScannerContainer extends React.PureComponent<Props> {
   /**
    * Format images into SavedDocumentProps form
    */
-  getPDFDocument = (): SavedDocumentProps => {
-    const { pdfDocument, confirmedDocuments, activeTab } = this.props;
+  getPDFDocument = (confirmedDocuments: ScannedDocumentProps[]): SavedDocumentProps => {
+    const { pdfDocument, activeTab } = this.props;
     const documentType = [
       'ocr',
       'card',
@@ -134,13 +135,53 @@ class ScannerContainer extends React.PureComponent<Props> {
    * Proceed to edit Scanned Images to generate PDF/ OCR
    */
   goToScanEdit = () => {
-    const pdfDocument: SavedDocumentProps = this.getPDFDocument();
+    const { confirmedDocuments } = this.props;
+    const pdfDocument: SavedDocumentProps = this.getPDFDocument(confirmedDocuments);
 
     if (pdfDocument) {
       this.props.dispatch(goToScanEdit(pdfDocument));
       this.prepareSafeLeave('EditScan');
     }
   };
+
+  /**
+   * Pick images from gallery
+   */
+  pickFromGallery = async (images: ImageProps[]) => {
+    const confirmedDocuments: ScannedDocumentProps[] = await Promise.all(
+      images.map(async img => {
+        let width: number, height: number;
+
+        await Image.getSize(img.uri, (w, h) => {
+          width = w;
+          height = h;
+        }, () => {
+          width = null;
+          height = null;
+        });
+
+        return {
+          originalUri: img.uri,
+          croppedUri: img.uri,
+          finalUri: img.uri,
+          croppedPosition: null,
+          position: 1,
+          height,
+          width,
+          croppedHeight: height,
+          croppedWidth: width,
+          effect: null,
+        };
+      }),
+    );
+
+    const pdfDocument: SavedDocumentProps = this.getPDFDocument(confirmedDocuments);
+
+    if (pdfDocument) {
+      this.props.dispatch(goToScanEdit(pdfDocument));
+      this.prepareSafeLeave('EditScan');
+    }
+  }
 
   /**
    * Navigate to document screen
@@ -220,6 +261,7 @@ class ScannerContainer extends React.PureComponent<Props> {
       onDocumentCapture={this.onDocumentCapture}
       onDocumentAccepted={this.onDocumentAccepted}
       onDocumentRejected={this.onDocumentRejected}
+      pickFromGallery={this.pickFromGallery}
       goToScanEdit={this.goToScanEdit}
       goToDocuments={this.goToDocuments}
       forceGoToDocuments={this.forceGoToDocuments}
