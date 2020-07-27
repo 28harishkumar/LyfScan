@@ -145,7 +145,7 @@ class Component extends React.PureComponent<Props> {
     const isLastPage = index === documents.length - 1;
 
     const ratio = doc.croppedHeight / doc.croppedWidth;
-    const maxWidth = dimensions.width * 0.6;
+    const maxWidth = dimensions.width * 0.7;
     const width = doc.croppedWidth > maxWidth ? maxWidth : doc.croppedWidth;
     const height = width * ratio;
     const imageWidth = isActivePage ? width : width * 0.9;
@@ -170,7 +170,7 @@ class Component extends React.PureComponent<Props> {
         <ImageZoom
           useNativeDriver={true}
           cropWidth={imageWidth + 250}
-          cropHeight={imageHeight + 250}
+          cropHeight={dimensions.height - 110}
           imageWidth={imageWidth}
           imageHeight={imageHeight}
           pinchToZoom={true}
@@ -183,7 +183,8 @@ class Component extends React.PureComponent<Props> {
         >
           <Image
             style={styles.pageImage}
-            resizeMode='center'
+            resizeMethod='resize'
+            resizeMode='contain'
             source={{
               uri: doc.finalUri,
               height: imageWidth,
@@ -243,7 +244,7 @@ class Component extends React.PureComponent<Props> {
         style={styles.pagerWrap}
         showsHorizontalScrollIndicator={false}
         pagingEnabled={true}
-        snapToInterval={dimensions.width * 0.57 + 40}
+        snapToInterval={dimensions.width * 0.66}
         viewabilityConfig={{
           minimumViewTime: 200,
           itemVisiblePercentThreshold: 60,
