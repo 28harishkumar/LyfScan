@@ -72,7 +72,7 @@ class ScannerContainer extends React.PureComponent<Props> {
   onDocumentCapture = (data) => {
     const capturedDocument: ScannedDocumentProps = {
       originalUri: data.initialImage,
-      croppedUri: data.croppedImage,
+      croppedUri: data.initialImage,
       finalUri: null,
       croppedPosition: data.rectangleCoordinates,
       position: 1,

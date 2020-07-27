@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import ImageZoom from 'react-native-image-pan-zoom';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
@@ -145,9 +146,8 @@ class Component extends React.PureComponent<Props> {
 
     const ratio = doc.croppedHeight / doc.croppedWidth;
     const maxWidth = dimensions.width * 0.6;
-    const maxHeight = dimensions.height - 200;
     const width = doc.croppedWidth > maxWidth ? maxWidth : doc.croppedWidth;
-    const height = width * ratio > maxHeight ? maxHeight : width * ratio;
+    const height = width * ratio;
     const imageWidth = isActivePage ? width : width * 0.9;
     const imageHeight = isActivePage ? height : height * 0.9;
 
@@ -170,7 +170,7 @@ class Component extends React.PureComponent<Props> {
         <ImageZoom
           useNativeDriver={true}
           cropWidth={imageWidth + 250}
-          cropHeight={maxHeight + 150}
+          cropHeight={imageHeight + 250}
           imageWidth={imageWidth}
           imageHeight={imageHeight}
           pinchToZoom={true}
@@ -183,10 +183,11 @@ class Component extends React.PureComponent<Props> {
         >
           <Image
             style={styles.pageImage}
+            resizeMode='center'
             source={{
-              height: imageHeight,
-              width: imageWidth,
               uri: doc.finalUri,
+              height: imageWidth,
+              width: imageHeight,
             }}
           />
         </ImageZoom>

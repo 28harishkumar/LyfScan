@@ -42,19 +42,17 @@ export default StyleSheet.create({
   },
   scanner: {
     flex: 1,
+    position: 'absolute',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
     aspectRatio: undefined,
-  },
-  button: {
-    flex: 1,
-    alignSelf: 'center',
-    // position: 'absolute',
-    bottom: 32,
   },
   tabList: {
     height: 50,
+    backgroundColor: colors.primaryBg,
   },
   tabListContainer: {
-    paddingHorizontal: Dimensions.get('screen').width / 2 - 50,
+    paddingHorizontal: Dimensions.get('window').width / 2 - 50,
   },
   tabView: {
     padding: 13,
