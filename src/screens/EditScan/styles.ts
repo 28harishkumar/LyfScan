@@ -55,8 +55,8 @@ export default StyleSheet.create({
   },
   pagerContainerWrap: {
     // flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   firstPage: {
     marginLeft: dimensions.width * 0.15,
@@ -75,8 +75,7 @@ export default StyleSheet.create({
     elevation: 3,
   },
   pageImage: {
-    justifyContent: 'center',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   paggingWrap: {
     bottom: 80,

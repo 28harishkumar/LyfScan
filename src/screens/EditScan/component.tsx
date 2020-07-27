@@ -7,17 +7,14 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
 import ImageZoom from 'react-native-image-pan-zoom';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import { RaisedTextButton, TextButton } from '@src/components/button';
 import { SavedDocumentProps, ScannedDocumentProps } from '@src/types/doc';
-import { EditScanState } from '@src/types/screens/editScan';
 import styles from './styles';
 import colors from '@src/core/colors';
 import Ripple from '@src/components/ripple';
-const dimensions = Dimensions.get('screen');
+const dimensions = Dimensions.get('window');
 
 // TODO: define Props
 type Props = {
@@ -146,11 +143,8 @@ class Component extends React.PureComponent<Props> {
 
     const ratio = doc.croppedHeight / doc.croppedWidth;
     const maxWidth = dimensions.width * 0.7;
-    const width = doc.croppedWidth > maxWidth ? maxWidth : doc.croppedWidth;
-    const height = width * ratio;
-    const imageWidth = isActivePage ? width : width * 0.9;
-    const imageHeight = isActivePage ? height : height * 0.9;
-
+    const imageWidth = doc.croppedWidth > maxWidth ? maxWidth : doc.croppedWidth;
+    const imageHeight = imageWidth * ratio;
     const pageStyle: any[] = [styles.page, { width: imageWidth }];
 
     if (isActivePage) {
@@ -171,14 +165,15 @@ class Component extends React.PureComponent<Props> {
           useNativeDriver={true}
           cropWidth={imageWidth + 250}
           cropHeight={dimensions.height - 110}
-          imageWidth={imageWidth}
-          imageHeight={imageHeight}
+          imageWidth={imageWidth + 60}
+          imageHeight={imageHeight + 60 * ratio}
           pinchToZoom={true}
           onStartShouldSetPanResponder={(e, gesture) => {
             return gesture.numberActiveTouches > 1;
           }}
           onMoveShouldSetPanResponder={(e, gesture) => {
-            return gesture.numberActiveTouches > 1 || gesture?.moveX < gesture?.moveY;
+            // TODO: enable scroll when document is zoomed
+            return gesture.numberActiveTouches > 1;
           }}
         >
           <Image
@@ -187,8 +182,8 @@ class Component extends React.PureComponent<Props> {
             resizeMode='contain'
             source={{
               uri: doc.finalUri,
-              height: imageWidth,
-              width: imageHeight,
+              height: imageWidth + 60,
+              width: imageHeight + 60 * ratio,
             }}
           />
         </ImageZoom>
@@ -244,7 +239,7 @@ class Component extends React.PureComponent<Props> {
         style={styles.pagerWrap}
         showsHorizontalScrollIndicator={false}
         pagingEnabled={true}
-        snapToInterval={dimensions.width * 0.66}
+        snapToInterval={dimensions.width * 0.7}
         viewabilityConfig={{
           minimumViewTime: 200,
           itemVisiblePercentThreshold: 60,
