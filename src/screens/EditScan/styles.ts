@@ -5,6 +5,12 @@ const dimensions = Dimensions.get('screen');
 const ratio = dimensions.height / dimensions.width;
 
 export default StyleSheet.create({
+  fullFlex: {
+    flex: 1,
+  },
+  row: {
+    flexDirection: 'row',
+  },
   header: {
     height: 60,
     flexDirection: 'row',
@@ -12,20 +18,51 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.primary,
   },
+  modal: {
+    padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+  },
+  modalHead: {
+    fontWeight: 'bold',
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#dddddd',
+  },
+  modalBody: {
+    marginVertical: 16,
+  },
+  modalFooter: {
+  },
   closeIcon: {
     padding: 16,
   },
   nameForm: {
     flexDirection: 'row',
+    paddingLeft: 16,
   },
   nameInput: {
-
+    flex: 1,
+    backgroundColor: colors.primaryBg,
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    marginVertical: 8,
   },
-  nameCancelIcon: {
-
+  headerIcon: {
+    marginVertical: 8,
+    marginLeft: 5,
+    marginRight: 12,
   },
   nameWrap: {
     flexDirection: 'row',
+  },
+  cropHeaderTitle: {
+    flex: 1,
+    color: colors.secondaryText,
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingVertical: 5,
   },
   documentName: {
     color: colors.secondaryText,
@@ -55,8 +92,8 @@ export default StyleSheet.create({
   },
   pagerContainerWrap: {
     // flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   firstPage: {
     marginLeft: dimensions.width * 0.15,
@@ -75,7 +112,6 @@ export default StyleSheet.create({
     elevation: 3,
   },
   pageImage: {
-    justifyContent: 'center',
     alignSelf: 'center',
   },
   paggingWrap: {
@@ -90,6 +126,35 @@ export default StyleSheet.create({
   },
   paggingIcon: {
     padding: 16,
+  },
+  filterContainer: {
+    minHeight: 100,
+    width: dimensions.width,
+    bottom: 60,
+    position: 'absolute',
+    backgroundColor: colors.primaryBg,
+  },
+  filterList: {
+    flex: 1,
+    backgroundColor: colors.primaryBg,
+  },
+  filterThumb: {
+    margin: 5,
+    borderWidth: 1,
+    borderColor: colors.primaryBorder,
+  },
+  cropMeta: {
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  switchWrap: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  switch: {
+    padding: 12,
+    marginRight: 8,
   },
   actionContainer: {
     height: 60,

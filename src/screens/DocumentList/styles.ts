@@ -97,6 +97,7 @@ export default StyleSheet.create({
     backgroundColor: colors.lightBackground,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   docInfo: {
     maxWidth: Dimensions.get('screen').width / 2 - 50,
