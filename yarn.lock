@@ -2,8 +2,10 @@
 # yarn lockfile v1
 
 
-"@28harishkumar/react-native-scanner@file:../react-native-scanner":
+"@28harishkumar/react-native-scanner@https://github.com/28harishkumar/react-native-document-scanner":
   version "3.0.0"
+  uid "455ec8708fa65a9cf2e8e68db60af5b87835ab0c"
+  resolved "https://github.com/28harishkumar/react-native-document-scanner#455ec8708fa65a9cf2e8e68db60af5b87835ab0c"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -5807,9 +5809,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 query-string@^6.13.1:
   version "6.13.1"
@@ -5911,8 +5913,10 @@ react-native-image-pan-zoom@^2.1.12:
   resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
   integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
 
-"react-native-image-processor@file:../react-native-image-processor":
+"react-native-image-processor@https://github.com/28harishkumar/react-native-image-processor":
   version "1.0.0"
+  uid "4b4c9e46bb072dab09c5756781081a97c4a1b2d4"
+  resolved "https://github.com/28harishkumar/react-native-image-processor#4b4c9e46bb072dab09c5756781081a97c4a1b2d4"
 
 react-native-image-to-pdf@^1.2.0:
   version "1.2.0"
