@@ -2,8 +2,10 @@
 # yarn lockfile v1
 
 
-"@28harishkumar/react-native-scanner@file:../react-native-scanner":
+"@28harishkumar/react-native-scanner@https://github.com/28harishkumar/react-native-document-scanner":
   version "3.0.0"
+  uid "455ec8708fa65a9cf2e8e68db60af5b87835ab0c"
+  resolved "https://github.com/28harishkumar/react-native-document-scanner#455ec8708fa65a9cf2e8e68db60af5b87835ab0c"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
@@ -5911,8 +5913,10 @@ react-native-image-pan-zoom@^2.1.12:
   resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
   integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
 
-"react-native-image-processor@file:../react-native-image-processor":
+"react-native-image-processor@https://github.com/28harishkumar/react-native-image-processor":
   version "1.0.0"
+  uid "4b4c9e46bb072dab09c5756781081a97c4a1b2d4"
+  resolved "https://github.com/28harishkumar/react-native-image-processor#4b4c9e46bb072dab09c5756781081a97c4a1b2d4"
 
 react-native-image-to-pdf@^1.2.0:
   version "1.2.0"
@@ -7567,9 +7571,9 @@ xtend@~4.0.1:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 y18n@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
-  integrity sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.1.tgz#8db2b83c31c5d75099bb890b23f3094891e247d4"
+  integrity sha512-wNcy4NvjMYL8gogWWYAO7ZFWFfHcbdbE57tZO8e4cbpj8tfUcwrwqSl3ad8HxpYWCdXcJUCeKKZS62Av1affwQ==
 
 yallist@^2.1.2:
   version "2.1.2"
